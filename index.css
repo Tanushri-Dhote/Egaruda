@@ -1,0 +1,39 @@
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fix arrows visibility for BOTH modes */
+.slick-prev,
+.slick-next {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ec4899 !important; /* pink */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* Arrow icon */
+.slick-prev:before,
+.slick-next:before {
+  color: #ffffff !important; /* force white arrow */
+  font-size: 20px;
+  opacity: 1 !important; /* VERY IMPORTANT */
+}
+
+/* Position fix */
+.slick-prev {
+  left: -15px;
+}
+
+.slick-next {
+  right: -15px;
+}
+
+/* Hover */
+.slick-prev:hover,
+.slick-next:hover {
+  background: #db2777 !important;
+}
