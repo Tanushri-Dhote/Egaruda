@@ -20,20 +20,26 @@ import {
   FiMessageCircle,
   FiArrowLeft,
   FiArrowRight,
+  FiZap,
+  FiBattery,
   FiShield,
-  FiLock,
+  FiAward,
   FiSmile,
   FiGlobe,
-  FiClock
+  FiClock,
+  FiTrendingUp,
+  FiThumbsUp,
+  FiArrowRightCircle,
 } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-const FeatureCard = ({ icon: IconComponent, title, description, color, stats }) => {
+const FeatureCard = ({ icon: IconComponent, title, description, color, stats, onReadMore }) => {
   const bg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.600", "gray.300");
   const headingColor = useColorModeValue("gray.800", "white");
   const borderColor = useColorModeValue("gray.200", "gray.700");
-  const accentColor = useColorModeValue("pink.500", "pink.300");
+  const gradientBg = "linear(to-r, green.400, yellow.400, orange.400)";
 
   return (
     <Box
@@ -47,7 +53,7 @@ const FeatureCard = ({ icon: IconComponent, title, description, color, stats }) 
       _hover={{
         transform: { md: "translateY(-8px) scale(1.02)" },
         boxShadow: "2xl",
-        borderColor: accentColor,
+        borderColor: "green.400",
       }}
       transition="all 0.3s ease"
       position="relative"
@@ -61,7 +67,7 @@ const FeatureCard = ({ icon: IconComponent, title, description, color, stats }) 
         left={0}
         right={0}
         height="3px"
-        bgGradient={`linear(to-r, ${color}, ${accentColor})`}
+        bgGradient={gradientBg}
       />
 
       <Flex direction="column" height="100%">
@@ -89,35 +95,63 @@ const FeatureCard = ({ icon: IconComponent, title, description, color, stats }) 
           />
         </Flex>
         
-        <Heading 
-          as="h3"
-          fontSize={{ base: "16px", md: "18px", lg: "20px" }}
-          fontWeight="semibold"
-          color={headingColor}
+        {/* Title and Read More button in a row */}
+        <Flex 
+          align="center" 
+          justify="space-between" 
+          wrap="wrap"
+          gap={2}
           mb={2}
-          lineHeight="1.4"
         >
-          {title}
-        </Heading>
+          <Heading 
+            as="h3"
+            fontSize={{ base: "16px", md: "18px", lg: "20px" }}
+            fontWeight="semibold"
+            color={headingColor}
+            lineHeight="1.4"
+            flex="1"
+          >
+            {title}
+          </Heading>
+          
+          <Button
+            size="xs"
+            variant="ghost"
+            rightIcon={<FiArrowRightCircle />}
+            onClick={onReadMore}
+            color="green.500"
+            _hover={{
+              bgGradient: gradientBg,
+              color: "white",
+              transform: "translateX(3px)",
+            }}
+            transition="all 0.3s ease"
+            fontWeight="medium"
+            px={2}
+          >
+            Read More
+          </Button>
+        </Flex>
         
         <Text 
           fontSize={{ base: "13px", md: "14px", lg: "15px" }}
           color={textColor}
           lineHeight="1.6"
-          mb={3}
+          mb={4}
           flex="1"
         >
           {description}
         </Text>
         
         <Badge
-          colorScheme="pink"
-          variant="subtle"
-          alignSelf="flex-start"
-          px={2}
+          bgGradient={gradientBg}
+          color="white"
+          px={3}
           py={1}
-          borderRadius="md"
+          borderRadius="full"
           fontSize="xs"
+          fontWeight="medium"
+          alignSelf="flex-start"
         >
           {stats}
         </Badge>
@@ -131,98 +165,82 @@ const FeaturesSlider = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
 
-  const sectionBg = useColorModeValue("#fff5f7", "gray.900");
+  const sectionBg = useColorModeValue("#f0fff4", "gray.900");
   const textColor = useColorModeValue("gray.600", "gray.400");
   const headingColor = useColorModeValue("gray.800", "white");
-  const accentColor = useColorModeValue("pink.500", "pink.300");
   const cardBg = useColorModeValue("white", "gray.800");
   const borderColor = useColorModeValue("gray.200", "gray.700");
+  const gradientBg = "linear(to-r, green.400, yellow.400, orange.400)";
+
+  const handleReadMore = () => {
+    navigate('/about');
+  };
 
   const featuresData = [
     {
-      icon: FiUsers,
-      title: "Online Users",
-      description: "See who is online and ready to connect instantly with real-time updates.",
-      color: "green.400",
-      stats: "2.5k+ active",
+      icon: FiZap,
+      title: "Unmatched Power & Performance",
+      description: "Feel the thrill of every ride with a high-torque motor and advanced controller that deliver seamless acceleration and next-level efficiency.",
+      color: "green.500",
+      stats: "2.5k+ Active Riders",
     },
     {
-      icon: FiUserPlus,
-      title: "New Members",
-      description: "Discover newly joined members near you and expand your network.",
-      color: "blue.400",
-      stats: "500+ daily",
-    },
-    {
-      icon: FiEye,
-      title: "They Viewed You",
-      description: "Check who has visited your profile and shown interest in you.",
-      color: "purple.400",
-      stats: "Real-time",
-    },
-    {
-      icon: FiHeart,
-      title: "Your Likes",
-      description: "Track people you liked and those who liked you back.",
-      color: "pink.400",
-      stats: "Mutual Match",
-    },
-    {
-      icon: FiStar,
-      title: "Recommended Matches",
-      description: "Smart matching algorithms that help you find like-minded people.",
-      color: "orange.400",
-      stats: "AI Powered",
-    },
-    {
-      icon: FiMessageCircle,
-      title: "Real-Time Chatting",
-      description: "Smooth and fast messaging with instant delivery for uninterrupted conversations.",
-      color: "teal.400",
-      stats: "Instant",
-    },
-    {
-      icon: FiLock,
-      title: "User Privacy First",
-      description: "End-to-end encryption and strong privacy controls for secure communication.",
-      color: "cyan.400",
-      stats: "100% Secure",
-    },
-    {
-      icon: FiShield,
-      title: "Safe Community",
-      description: "Active moderation and AI-powered systems for respectful interactions.",
-      color: "red.400",
-      stats: "Moderated",
+      icon: FiTrendingUp,
+      title: "Speed That Excites",
+      description: "Experience top-class performance with lightning-fast pickup and a design engineered for urban speed and comfort.",
+      color: "orange.500",
+      stats: "75 km/h Top Speed",
     },
     {
       icon: FiSmile,
-      title: "Friendly Interface",
-      description: "Intuitive design that's easy to navigate for users of all ages.",
-      color: "yellow.400",
-      stats: "4.8/5 Rating",
+      title: "Comfort Meets Elegance",
+      description: "From ergonomic seating to a sleek, modern design, RMNA Electric Mobility combines luxury and practicality for the ultimate riding experience.",
+      color: "yellow.600",
+      stats: "Premium Comfort",
     },
     {
-      icon: FiGlobe,
-      title: "Global Connectivity",
-      description: "Availability with reliable servers across multiple continents 24/7.",
-      color: "blue.500",
-      stats: "Worldwide",
+      icon: FiBattery,
+      title: "Power That Lasts Longer",
+      description: "Equipped with an efficient, long-lasting battery, RMNA Electric Mobility ensures fewer stops, longer rides, and non-stop adventures.",
+      color: "green.500",
+      stats: "120km Range",
+    },
+    {
+      icon: FiAward,
+      title: "Express Your Style",
+      description: "Available in vibrant, premium color variants, RMNA Electric Mobility lets you stand out from the crowd and ride in style.",
+      color: "orange.500",
+      stats: "6+ Color Options",
+    },
+    {
+      icon: FiShield,
+      title: "Your Safety, Our Priority",
+      description: "With front disc brakes, rear drum brakes, and a solid build, RMNA Electric Mobility gives you complete control and confidence on every road.",
+      color: "yellow.600",
+      stats: "Safety Certified",
     },
     {
       icon: FiClock,
-      title: "Instant Responses",
-      description: "Quick reply suggestions and smart notifications for better engagement.",
-      color: "purple.500",
-      stats: "< 1s reply",
+      title: "Fast Charging Technology",
+      description: "Get back on the road quickly with our rapid charging system that powers up your scooter in record time.",
+      color: "green.500",
+      stats: "80% in 2 Hours",
     },
     {
-      icon: FiStar,
-      title: "Premium Experience",
-      description: "Exclusive features for enhanced chatting experience and priority support.",
-      color: "pink.500",
-      stats: "Premium",
+      icon: FiGlobe,
+      title: "Eco-Friendly Mobility",
+      description: "Zero emissions, silent operation, and sustainable design make RMNA Electric Mobility the perfect choice for green commuting.",
+      color: "orange.500",
+      stats: "Zero Carbon",
+    },
+    {
+      icon: FiThumbsUp,
+      title: "Smart Connectivity",
+      description: "Stay connected with your scooter through our mobile app - track rides, battery status, and find charging stations.",
+      color: "yellow.600",
+      stats: "App Enabled",
     },
   ];
 
@@ -234,7 +252,7 @@ const FeaturesSlider = () => {
     if (!isHovered && !isTransitioning) {
       interval = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % totalSlides);
-      }, 3000);
+      }, 4000);
     }
     return () => clearInterval(interval);
   }, [isHovered, isTransitioning, totalSlides]);
@@ -247,17 +265,32 @@ const FeaturesSlider = () => {
       bg={sectionBg}
     >
       <VStack spacing={4} mb={{ base: 8, md: 16 }} textAlign="center">
+        <Badge
+          bgGradient={gradientBg}
+          color="white"
+          fontSize={{ base: "sm", md: "md" }}
+          px={4}
+          py={2}
+          borderRadius="full"
+        >
+          <HStack spacing={2}>
+            <Icon as={FiZap} />
+            <Text>Why Choose Us</Text>
+          </HStack>
+        </Badge>
+        
         <Heading
           fontSize={{ base: "28px", md: "40px", lg: "48px" }}
           fontWeight="bold"
-          bgGradient="linear(to-r, pink.500, purple.500)"
+          bgGradient={gradientBg}
           bgClip="text"
           lineHeight="1.2"
           letterSpacing="tight"
           px={{ base: 2, md: 0 }}
         >
-          Explore Features 💖
+          Why Choose RMNA Electric Mobility
         </Heading>
+        
         <Text 
           fontSize={{ base: "15px", md: "18px" }}
           color={textColor}
@@ -265,8 +298,7 @@ const FeaturesSlider = () => {
           lineHeight="1.6"
           px={{ base: 4, md: 0 }}
         >
-          Discover all the amazing features we offer to enhance your experience
-          and help you build meaningful connections.
+          Step into the <strong>future of mobility</strong> with <strong>RMNA Electric Mobility</strong> – where <strong>power meets style,</strong> and <strong>innovation drives freedom.</strong> Here's why RMNA Electric Mobility is the <strong>perfect companion</strong> for your journey:
         </Text>
       </VStack>
       
@@ -299,7 +331,7 @@ const FeaturesSlider = () => {
               borderRadius="full"
               bg={cardBg}
               boxShadow="lg"
-              _hover={{ bg: accentColor, color: "white", transform: "scale(1.1)" }}
+              _hover={{ bgGradient: gradientBg, color: "white", transform: "scale(1.1)" }}
               size={{ base: "sm", md: "md" }}
               transition="all 0.2s"
               isDisabled={isTransitioning}
@@ -319,7 +351,7 @@ const FeaturesSlider = () => {
               borderRadius="full"
               bg={cardBg}
               boxShadow="lg"
-              _hover={{ bg: accentColor, color: "white", transform: "scale(1.1)" }}
+              _hover={{ bgGradient: gradientBg, color: "white", transform: "scale(1.1)" }}
               size={{ base: "sm", md: "md" }}
               transition="all 0.2s"
               isDisabled={isTransitioning}
@@ -346,7 +378,11 @@ const FeaturesSlider = () => {
                   {featuresData
                     .slice(slideIndex * slidesPerView, (slideIndex + 1) * slidesPerView)
                     .map((feature, index) => (
-                      <FeatureCard key={index} {...feature} />
+                      <FeatureCard 
+                        key={index} 
+                        {...feature} 
+                        onReadMore={handleReadMore}
+                      />
                     ))}
                   {/* Fill empty spaces with empty boxes if not enough items in the last slide */}
                   {slideIndex === totalSlides - 1 && 
@@ -367,7 +403,7 @@ const FeaturesSlider = () => {
                 w={currentSlide === index ? "32px" : "8px"}
                 h="8px"
                 borderRadius="full"
-                bg={currentSlide === index ? accentColor : borderColor}
+                bg={currentSlide === index ? "orange.400" : borderColor}
                 cursor="pointer"
                 onClick={() => {
                   setIsTransitioning(true);
@@ -375,7 +411,7 @@ const FeaturesSlider = () => {
                   setTimeout(() => setIsTransitioning(false), 500);
                 }}
                 transition="all 0.3s ease"
-                _hover={{ bg: accentColor, opacity: 0.8 }}
+                _hover={{ bg: "orange.400", opacity: 0.8 }}
               />
             ))}
           </HStack>
@@ -385,7 +421,7 @@ const FeaturesSlider = () => {
   );
 };
 
-// Helper hook for responsive breakpoints (Replicated from About.jsx)
+// Helper hook for responsive breakpoints
 function useBreakpointValue(values) {
   const [value, setValue] = useState(values.base);
   

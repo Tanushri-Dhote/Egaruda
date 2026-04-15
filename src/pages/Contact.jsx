@@ -14,7 +14,6 @@ import {
   FormLabel,
   InputGroup,
   InputLeftElement,
-  Select,
   SimpleGrid,
   Container,
   Link,
@@ -23,42 +22,46 @@ import {
   ScaleFade,
   SlideFade,
   Fade,
+  Divider,
 } from "@chakra-ui/react";
 import {
   FaEnvelope,
   FaUser,
-  FaComment,
   FaPaperPlane,
-  FaHeart,
   FaHeadset,
-  FaCheckCircle,
-  FaArrowRight,
   FaClock,
   FaRegSmile,
+  FaPhone,
+  FaMapMarker,
+  FaFacebook,
+  FaInstagram,
+  FaCity,
 } from "react-icons/fa";
 import { useState } from "react";
 
 const Contact = () => {
   const toast = useToast();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
+    fullName: "",
+    contactNo: "",
+    city: "",
+    emailId: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const bgGradient = useColorModeValue(
-    "linear(to-b, #fff5f7, white)",
+    "linear(to-b, #f0fff4, white)",
     "linear(to-b, gray.900, #1a1a1a)"
   );
   const cardBg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.600", "gray.300");
   const headingColor = useColorModeValue("gray.800", "white");
-  const accentColor = useColorModeValue("pink.500", "pink.300");
+  const accentColor = useColorModeValue("orange.500", "orange.400");
   const borderColor = useColorModeValue("gray.200", "gray.700");
   const inputBg = useColorModeValue("gray.50", "gray.700");
-  const highlightBg = useColorModeValue("pink.50", "gray.700");
+  const highlightBg = useColorModeValue("orange.50", "gray.700");
+  const gradientBg = "linear(to-r, #f97316, #fb923c, #22c55e, #15803d)";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,18 +71,18 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     setTimeout(() => {
       toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
+        title: "Message sent successfully!",
+        description: "Our team will get back to you shortly.",
         status: "success",
         duration: 5000,
         isClosable: true,
         position: "top",
         variant: "subtle",
       });
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ fullName: "", contactNo: "", city: "", emailId: "", message: "" });
       setIsSubmitting(false);
     }, 1500);
   };
@@ -88,14 +91,18 @@ const Contact = () => {
     <Box bg={bgGradient} minH="100vh">
       {/* Hero Section */}
       <Box
-        bg={useColorModeValue("pink.500", "pink.600")}
+        bgGradient={gradientBg}
         color="white"
         py={{ base: 16, md: 20 }}
         px={6}
         position="relative"
+        bgImage="images/product-image-8.jpeg"
+      
+        backgroundSize="cover"
+        backgroundPosition="center"
         overflow="hidden"
         sx={{
-          animation: "gradientShift 10s ease infinite",
+          animation: "gradientShift 12s ease infinite",
           "@keyframes gradientShift": {
             "0%": { backgroundPosition: "0% 50%" },
             "50%": { backgroundPosition: "100% 50%" },
@@ -103,246 +110,238 @@ const Contact = () => {
           },
         }}
       >
-        {/* Decorative elements */}
+        {/* Decorative Orbs */}
         <Box
           position="absolute"
-          top="-80px"
-          right="-80px"
-          w="300px"
-          h="300px"
+          top="-100px"
+          right="-100px"
+          w="350px"
+          h="350px"
           borderRadius="full"
           bg="whiteAlpha.200"
           zIndex={0}
-          sx={{
-            animation: "float 8s ease-in-out infinite",
-            "@keyframes float": {
-              "0%": { transform: "translate(0px, 0px) rotate(0deg)" },
-              "50%": { transform: "translate(-20px, 20px) rotate(5deg)" },
-              "100%": { transform: "translate(0px, 0px) rotate(0deg)" },
-            },
-          }}
+          sx={{ animation: "float 9s ease-in-out infinite" }}
         />
         <Box
           position="absolute"
-          bottom="-50px"
-          left="-50px"
-          w="200px"
-          h="200px"
+          bottom="-80px"
+          left="-80px"
+          w="250px"
+          h="250px"
           borderRadius="full"
-          bg="whiteAlpha.100"
+          bg="whiteAlpha.150"
           zIndex={0}
-          sx={{
-            animation: "float 12s ease-in-out infinite reverse",
-          }}
+          sx={{ animation: "float 14s ease-in-out infinite reverse" }}
         />
 
         <VStack spacing={5} maxW="800px" mx="auto" textAlign="center" position="relative" zIndex={1}>
-          <ScaleFade initialScale={0.9} in={true}>
-            <Badge
-              bg="whiteAlpha.300"
-              color="white"
-              fontSize={{ base: "sm", md: "md" }}
-              px={4}
-              py={2}
-              borderRadius="full"
-              mb={2}
-              _hover={{ transform: "scale(1.05)", bg: "whiteAlpha.400" }}
-              transition="all 0.3s"
-            >
-              <HStack spacing={2}>
-                <Icon as={FaHeart} />
-                <Text>📞 Contact Us</Text>
-              </HStack>
-            </Badge>
-          </ScaleFade>
-          
-          <SlideFade in={true} offsetY="20px">
+        
+
+          <SlideFade in={true} offsetY="30px">
             <Heading
-              as="h1"
-              fontSize={{ base: "40px", md: "52px", lg: "64px" }}
+              as="h3"
+              fontSize={{ base: "36px", md: "36px", lg: "48px" }}
               fontWeight="extrabold"
               letterSpacing="tight"
-              lineHeight="1.1"
+              lineHeight="1.05"
             >
-              Contact Us
+              Contact RMNA E-Mobility
             </Heading>
           </SlideFade>
-          
-          {/* <Fade in={true} delay={0.2}>
-            <Text fontSize={{ base: "18px", md: "20px", lg: "22px" }} opacity={0.9} maxW="600px" lineHeight="1.6">
-              Have questions or need assistance? Our support team is here to help you anytime.
-            </Text>
-          </Fade> */}
-          
-          <Fade in={true} delay={0.3}>
-            <Text fontSize={{ base: "16px", md: "17px" }} opacity={0.8} maxW="550px">
-              Feel free to reach out to us via email and we'll get back to you as soon as possible.
+
+          <Fade in={true} delay={0.4}>
+            <Text fontSize={{ base: "16px", md: "18px" }} opacity={0.9} maxW="560px">
+              Have questions about our electric scooters? Our team is ready to help you.
             </Text>
           </Fade>
         </VStack>
       </Box>
 
-      <Container maxW="1000px" py={{ base: 12, md: 16 }} px={{ base: 4, md: 6 }}>
-        {/* Email Support Card */}
+      <Container maxW="1100px" py={{ base: 12, md: 16 }} px={{ base: 4, md: 6 }}>
+        {/* Contact Info + Form */}
         <ScaleFade in={true} delay={0.2}>
-          <Box
-            bg={cardBg}
-            borderRadius="2xl"
-            border="1px solid"
-            borderColor={borderColor}
-            overflow="hidden"
-            boxShadow="2xl"
-            mb={12}
-            position="relative"
-          >
+          <Flex direction={{ base: "column", lg: "row" }} gap={10} mb={12}>
+            {/* Left: Contact Information */}
             <Box
-              position="absolute"
-              top={0}
-              left={0}
-              right={0}
-              height="4px"
-              bgGradient="linear(to-r, pink.500, purple.500)"
-            />
-            
-            <Flex
-              direction="column"
-              gap={8}
+              flex="1"
+              bg={cardBg}
+              borderRadius="3xl"
+              border="1px solid"
+              borderColor={borderColor}
+              overflow="hidden"
+              boxShadow="xl"
+              _hover={{ transform: "translateY(-6px)", boxShadow: "2xl" }}
+              transition="all 0.4s ease"
             >
-              {/* Left Side - Email Info */}
-              <Box
-                flex="1"
-                bg={useColorModeValue("pink.50", "gray.700")}
-                p={{ base: 8, md: 10 }}
-                textAlign="center"
-              >
+              <Box h="5px" bgGradient={gradientBg} />
+
+              <Box p={{ base: 8, md: 10 }}>
                 <Flex
-                  w={{ base: "100px", md: "120px" }}
-                  h={{ base: "100px", md: "120px" }}
-                  bg="white"
+                  w="70px"
+                  h="70px"
+                  bgGradient={gradientBg}
                   borderRadius="full"
                   align="center"
                   justify="center"
-                  mx="auto"
                   mb={6}
-                  boxShadow="xl"
-                  sx={{
-                    animation: "floatIcon 3s ease-in-out infinite",
-                    "@keyframes floatIcon": {
-                      "0%": { transform: "translateY(0px)" },
-                      "50%": { transform: "translateY(-8px)" },
-                      "100%": { transform: "translateY(0px)" },
-                    },
-                  }}
+                  boxShadow="lg"
                 >
-                  <Icon as={FaEnvelope} boxSize={{ base: 10, md: 12 }} color={accentColor} />
+                  <Icon as={FaEnvelope} boxSize={9} color="white" />
                 </Flex>
-                
-                <Heading 
-                  as="h2"
-                  fontSize={{ base: "28px", md: "32px" }}
-                  fontWeight="bold"
-                  color={headingColor}
-                  mb={3}
-                >
-                  📧 Email Support
-                </Heading>
-                
-                <Link
-                  href="mailto:support@delbaram.com"
-                  fontSize={{ base: "20px", md: "24px" }}
-                  fontWeight="bold"
-                  color={accentColor}
-                  _hover={{ 
-                    textDecoration: "underline",
-                    transform: "scale(1.02)",
-                  }}
-                  transition="all 0.2s"
-                  display="inline-block"
-                  mb={4}
-                >
-                  support@delbaram.com
-                </Link>
-                
-                <HStack spacing={1} justify="center" mb={4}>
-                  <Icon as={FaClock} boxSize={4} color={accentColor} />
-                  <Text fontSize="14px" color={textColor}>
-                    Response time: Within 24 hours
-                  </Text>
-                </HStack>
-                
-                <Text fontSize="15px" color={textColor} maxW="400px" mx="auto">
-                  Send us an email anytime and our support team will get back to you promptly.
-                </Text>
-              </Box>
 
-              {/* Right Side - Contact Form - COMMENTED OUT */}
-              {/* <Box flex={1.5} p={{ base: 6, md: 8 }}>
-                <VStack align="flex-start" spacing={6}>
+                <Heading as="h2" fontSize={{ base: "28px", md: "32px" }} mb={3} color={headingColor}>
+                  Got Queries? We’ve Got Answers!
+                </Heading>
+
+                <Text fontSize="15.5px" color={textColor} mb={8} lineHeight="1.7">
+                  Whether you're interested in our electric scooters, need support, or want dealer information, feel free to reach out.
+                </Text>
+
+                <VStack spacing={6} align="flex-start">
+                  {/* Address 1 */}
+                  <HStack spacing={4} align="flex-start">
+                    <Icon as={FaMapMarker} boxSize={6} color={accentColor} mt={1} />
+                    <Box>
+                      <Text fontWeight="semibold" color={headingColor} mb={1}>
+                        RMNA E-Mobility Services (Bara)
+                      </Text>
+                      <Text color={textColor} fontSize="14.5px" lineHeight="1.6">
+                        Village & Post- Bara, Teh – Haidergarh,<br />
+                        Near Neeraj Hotel, Sultanpur Road,<br />
+                        Uttar Pradesh - 225126
+                      </Text>
+                    </Box>
+                  </HStack>
+
+                  {/* Address 2 */}
+                  <HStack spacing={4} align="flex-start">
+                    <Icon as={FaMapMarker} boxSize={6} color={accentColor} mt={1} />
+                    <Box>
+                      <Text fontWeight="semibold" color={headingColor} mb={1}>
+                        RMNA E-Mobility Services (Akbarpur)
+                      </Text>
+                      <Text color={textColor} fontSize="14.5px" lineHeight="1.6">
+                        Ragad Ganj, Police Line, Tanda Road,<br />
+                        Akbarpur, Ambedkar Nagar,<br />
+                        Uttar Pradesh - 224122
+                      </Text>
+                    </Box>
+                  </HStack>
+
+                  <HStack spacing={4} align="flex-start">
+                    <Icon as={FaPhone} boxSize={6} color={accentColor} mt={1} />
+                    <Box>
+                      <Text fontWeight="semibold" color={headingColor} mb={1}>
+                        Phone
+                      </Text>
+                      <Text color={textColor} fontSize="15px">
+                        +91 9695600185<br />
+                        +91 9125948111
+                      </Text>
+                    </Box>
+                  </HStack>
+
+                  <HStack spacing={4} align="flex-start">
+                    <Icon as={FaEnvelope} boxSize={6} color={accentColor} mt={1} />
+                    <Box>
+                      <Text fontWeight="semibold" color={headingColor} mb={1}>
+                        Email
+                      </Text>
+                      <Text color={textColor} fontSize="15px">
+                        ramnamultiservices@gmail.com
+                      </Text>
+                    </Box>
+                  </HStack>
+
+                  <HStack spacing={4} align="flex-start">
+                    <Icon as={FaClock} boxSize={6} color={accentColor} mt={1} />
+                    <Box>
+                      <Text fontWeight="semibold" color={headingColor} mb={1}>
+                        Support Hours
+                      </Text>
+                      <Text color={textColor} fontSize="14.5px">
+                        Monday - Saturday: 10:00 AM - 6:00 PM
+                      </Text>
+                    </Box>
+                  </HStack>
+                </VStack>
+
+                <Box mt={8}>
+                  <Badge bg={highlightBg} color={accentColor} px={4} py={2} borderRadius="full" fontSize="sm">
+                    <HStack>
+                      <Icon as={FaRegSmile} />
+                      <Text>24/7 Online Support Available</Text>
+                    </HStack>
+                  </Badge>
+                </Box>
+              </Box>
+            </Box>
+
+            {/* Right: Contact Form */}
+            <Box
+              flex="1.1"
+              bg={cardBg}
+              borderRadius="3xl"
+              border="1px solid"
+              borderColor={borderColor}
+              overflow="hidden"
+              boxShadow="xl"
+              _hover={{ transform: "translateY(-6px)", boxShadow: "2xl" }}
+              transition="all 0.4s ease"
+            >
+              <Box h="5px" bgGradient={gradientBg} />
+
+              <Box p={{ base: 8, md: 10 }}>
+                <VStack align="flex-start" spacing={5}>
                   <Box>
-                    <Heading 
-                      as="h2"
-                      fontSize={{ base: "24px", md: "28px" }}
-                      fontWeight="bold"
-                      color={headingColor}
-                      mb={2}
-                      lineHeight="1.2"
-                    >
+                    <Heading as="h2" fontSize={{ base: "26px", md: "30px" }} color={headingColor} mb={2}>
                       Send Us a Message
                     </Heading>
-                    <Text 
-                      fontSize={{ base: "15px", md: "16px" }}
-                      color={textColor}
-                      lineHeight="1.6"
-                    >
-                      Fill out the form below and we'll get back to you as soon as possible.
+                    <Text color={textColor} fontSize="15px" lineHeight="1.6">
+                      Fill the form below and our team will respond as soon as possible.
+                    </Text>
+                    <Text fontSize="13px" color="red.500" mt={1}>
+                      * Required fields
                     </Text>
                   </Box>
 
                   <form onSubmit={handleSubmit} style={{ width: "100%" }}>
-                    <VStack spacing={5} w="100%">
-                      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} w="100%">
+                    <VStack spacing={6} w="100%">
+                      <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} w="full">
                         <FormControl isRequired>
-                          <FormLabel fontSize="14px" fontWeight="medium" color={headingColor}>
-                            Your Name
-                          </FormLabel>
+                          <FormLabel fontSize="14px" color={headingColor}>Full Name *</FormLabel>
                           <InputGroup>
                             <InputLeftElement>
                               <Icon as={FaUser} color={accentColor} />
                             </InputLeftElement>
                             <Input
-                              name="name"
-                              value={formData.name}
+                              name="fullName"
+                              value={formData.fullName}
                               onChange={handleChange}
-                              placeholder="John Doe"
+                              placeholder="Your full name"
                               bg={inputBg}
-                              border="1px solid"
                               borderColor={borderColor}
-                              _focus={{ borderColor: accentColor, boxShadow: `0 0 0 1px ${accentColor}` }}
-                              fontSize="16px"
+                              _focus={{ borderColor: accentColor }}
                               py={6}
                             />
                           </InputGroup>
                         </FormControl>
 
                         <FormControl isRequired>
-                          <FormLabel fontSize="14px" fontWeight="medium" color={headingColor}>
-                            Email Address
-                          </FormLabel>
+                          <FormLabel fontSize="14px" color={headingColor}>Contact No. *</FormLabel>
                           <InputGroup>
                             <InputLeftElement>
-                              <Icon as={FaEnvelope} color={accentColor} />
+                              <Icon as={FaPhone} color={accentColor} />
                             </InputLeftElement>
                             <Input
-                              name="email"
-                              type="email"
-                              value={formData.email}
+                              name="contactNo"
+                              type="tel"
+                              value={formData.contactNo}
                               onChange={handleChange}
-                              placeholder="john@example.com"
+                              placeholder="Your phone number"
                               bg={inputBg}
-                              border="1px solid"
                               borderColor={borderColor}
-                              _focus={{ borderColor: accentColor, boxShadow: `0 0 0 1px ${accentColor}` }}
-                              fontSize="16px"
+                              _focus={{ borderColor: accentColor }}
                               py={6}
                             />
                           </InputGroup>
@@ -350,44 +349,55 @@ const Contact = () => {
                       </SimpleGrid>
 
                       <FormControl isRequired>
-                        <FormLabel fontSize="14px" fontWeight="medium" color={headingColor}>
-                          Subject
-                        </FormLabel>
-                        <Select
-                          name="subject"
-                          value={formData.subject}
-                          onChange={handleChange}
-                          placeholder="Select a subject"
-                          bg={inputBg}
-                          border="1px solid"
-                          borderColor={borderColor}
-                          _focus={{ borderColor: accentColor, boxShadow: `0 0 0 1px ${accentColor}` }}
-                          fontSize="16px"
-                          py={2}
-                        >
-                          <option value="general">General Inquiry</option>
-                          <option value="support">Technical Support</option>
-                          <option value="account">Account Issues</option>
-                          <option value="feedback">Feedback</option>
-                          <option value="other">Other</option>
-                        </Select>
+                        <FormLabel fontSize="14px" color={headingColor}>City *</FormLabel>
+                        <InputGroup>
+                          <InputLeftElement>
+                            <Icon as={FaCity} color={accentColor} />
+                          </InputLeftElement>
+                          <Input
+                            name="city"
+                            value={formData.city}
+                            onChange={handleChange}
+                            placeholder="Your city"
+                            bg={inputBg}
+                            borderColor={borderColor}
+                            _focus={{ borderColor: accentColor }}
+                            py={6}
+                          />
+                        </InputGroup>
                       </FormControl>
 
                       <FormControl isRequired>
-                        <FormLabel fontSize="14px" fontWeight="medium" color={headingColor}>
-                          Message
-                        </FormLabel>
+                        <FormLabel fontSize="14px" color={headingColor}>Email Id *</FormLabel>
+                        <InputGroup>
+                          <InputLeftElement>
+                            <Icon as={FaEnvelope} color={accentColor} />
+                          </InputLeftElement>
+                          <Input
+                            name="emailId"
+                            type="email"
+                            value={formData.emailId}
+                            onChange={handleChange}
+                            placeholder="your@email.com"
+                            bg={inputBg}
+                            borderColor={borderColor}
+                            _focus={{ borderColor: accentColor }}
+                            py={6}
+                          />
+                        </InputGroup>
+                      </FormControl>
+
+                      <FormControl isRequired>
+                        <FormLabel fontSize="14px" color={headingColor}>Message *</FormLabel>
                         <Textarea
                           name="message"
                           value={formData.message}
                           onChange={handleChange}
-                          placeholder="Type your message here..."
+                          placeholder="Write your message here..."
                           rows={6}
                           bg={inputBg}
-                          border="1px solid"
                           borderColor={borderColor}
-                          _focus={{ borderColor: accentColor, boxShadow: `0 0 0 1px ${accentColor}` }}
-                          fontSize="16px"
+                          _focus={{ borderColor: accentColor }}
                           resize="vertical"
                         />
                       </FormControl>
@@ -396,168 +406,99 @@ const Contact = () => {
                         type="submit"
                         size="lg"
                         w="full"
-                        bg={accentColor}
+                        bgGradient={gradientBg}
                         color="white"
                         isLoading={isSubmitting}
                         loadingText="Sending..."
-                        _hover={{ 
-                          transform: { md: "scale(1.02)" }, 
-                          bg: useColorModeValue("pink.600", "pink.400"),
-                          boxShadow: "lg",
-                        }}
+                        _hover={{ transform: "scale(1.03)", boxShadow: "lg" }}
                         leftIcon={<FaPaperPlane />}
+                        py={7}
                         fontSize="16px"
                         fontWeight="bold"
-                        py={7}
-                        transition="all 0.3s"
                       >
                         Send Message
                       </Button>
                     </VStack>
                   </form>
                 </VStack>
-              </Box> */}
-            </Flex>
-          </Box>
+              </Box>
+            </Box>
+          </Flex>
         </ScaleFade>
 
-        {/* Quick Support Section */}
-        <ScaleFade in={true} delay={0.4}>
+        {/* Customer Support Section */}
+        <ScaleFade in={true} delay={0.3}>
           <Box
-            bg={highlightBg}
-            borderRadius="2xl"
-            p={{ base: 6, md: 8 }}
+            bg={cardBg}
+            borderRadius="3xl"
             border="1px solid"
             borderColor={borderColor}
+            overflow="hidden"
+            boxShadow="xl"
+            _hover={{ transform: "translateY(-4px)" }}
+            transition="all 0.3s"
           >
-            <Flex
-              direction={{ base: "column", md: "row" }}
-              align="center"
-              justify="space-between"
-              gap={6}
-            >
-              <HStack spacing={4}>
+            <Box h="5px" bgGradient={gradientBg} />
+
+            <Box p={{ base: 8, md: 10 }}>
+              <HStack spacing={4} mb={6}>
                 <Flex
-                  w={{ base: "50px", md: "60px" }}
-                  h={{ base: "50px", md: "60px" }}
-                  bg="white"
+                  w="55px"
+                  h="55px"
+                  bgGradient={gradientBg}
                   borderRadius="full"
                   align="center"
                   justify="center"
                 >
-                  <Icon as={FaHeadset} boxSize={{ base: 6, md: 7 }} color={accentColor} />
+                  <Icon as={FaHeadset} boxSize={7} color="white" />
                 </Flex>
-                <Box>
-                  <Heading 
-                    as="h3"
-                    fontSize={{ base: "18px", md: "20px" }}
-                    fontWeight="bold"
-                    color={headingColor}
-                    mb={1}
-                  >
-                    Need Immediate Assistance?
-                  </Heading>
-                  <Text fontSize={{ base: "14px", md: "15px" }} color={textColor}>
-                    Our support team is ready to help you with any questions
-                  </Text>
-                </Box>
+                <Heading as="h3" fontSize="26px" color={headingColor}>
+                  Customer Support
+                </Heading>
               </HStack>
 
-              <Link
-                href="mailto:support@delbaram.com"
-                _hover={{ textDecoration: "none" }}
-              >
-                <Button
-                  size="lg"
-                  bg={accentColor}
-                  color="white"
-                  _hover={{ 
-                    transform: { md: "scale(1.05)" },
-                    boxShadow: "lg",
-                  }}
-                  borderRadius="full"
-                  px={8}
-                  rightIcon={<FaArrowRight />}
-                  fontSize="15px"
-                  fontWeight="bold"
-                >
-                  Email Support Now
-                </Button>
-              </Link>
-            </Flex>
+              <Divider mb={6} borderColor={borderColor} />
+
+              <Text color={textColor} lineHeight="1.7" mb={8} maxW="700px">
+                Have a query about your scooty, warranty, service, or any other assistance? 
+                Our dedicated support team is ready to help you with quick and reliable solutions.
+              </Text>
+
+              <Box>
+                <Text fontWeight="medium" mb={3} color={headingColor}>Follow Us</Text>
+                <HStack spacing={4}>
+                  <Link href="#" _hover={{ transform: "scale(1.15)" }} transition="0.2s">
+                    <Flex
+                      w="48px"
+                      h="48px"
+                      bg={highlightBg}
+                      borderRadius="full"
+                      align="center"
+                      justify="center"
+                      _hover={{ bgGradient: gradientBg }}
+                    >
+                      <Icon as={FaFacebook} boxSize={6} color={accentColor} _hover={{ color: "white" }} />
+                    </Flex>
+                  </Link>
+
+                  <Link href="#" _hover={{ transform: "scale(1.15)" }} transition="0.2s">
+                    <Flex
+                      w="48px"
+                      h="48px"
+                      bg={highlightBg}
+                      borderRadius="full"
+                      align="center"
+                      justify="center"
+                      _hover={{ bgGradient: gradientBg }}
+                    >
+                      <Icon as={FaInstagram} boxSize={6} color={accentColor} _hover={{ color: "white" }} />
+                    </Flex>
+                  </Link>
+                </HStack>
+              </Box>
+            </Box>
           </Box>
         </ScaleFade>
-
-        {/* Response Time Badge */}
-        <ScaleFade in={true} delay={0.6}>
-          <Flex
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            justify="center"
-            bg={accentColor}
-            color="white"
-            borderRadius="xl"
-            p={6}
-            mt={8}
-            position="relative"
-            overflow="hidden"
-          >
-            <Box
-              position="absolute"
-              top={-10}
-              right={-10}
-              w="120px"
-              h="120px"
-              borderRadius="full"
-              bg="whiteAlpha.200"
-              sx={{
-                animation: "rotate 20s linear infinite",
-                "@keyframes rotate": {
-                  "0%": { transform: "rotate(0deg)" },
-                  "100%": { transform: "rotate(360deg)" },
-                },
-              }}
-            />
-            
-            <HStack spacing={4} zIndex={1}>
-              <Icon 
-                as={FaCheckCircle} 
-                boxSize={{ base: 8, md: 10 }}
-                sx={{
-                  animation: "pulse 2s ease-in-out infinite",
-                  "@keyframes pulse": {
-                    "0%": { transform: "scale(1)", opacity: 1 },
-                    "50%": { transform: "scale(1.1)", opacity: 0.8 },
-                    "100%": { transform: "scale(1)", opacity: 1 },
-                  },
-                }}
-              />
-              <Box textAlign="center">
-                <Heading 
-                  as="h3"
-                  fontSize={{ base: "18px", md: "20px" }}
-                  fontWeight="bold"
-                >
-                  Quick Response Time
-                </Heading>
-                <Text fontSize={{ base: "13px", md: "14px" }} opacity={0.9}>
-                  We typically respond within 24 hours
-                </Text>
-              </Box>
-            </HStack>
-          </Flex>
-        </ScaleFade>
-
-        {/* Footer Note */}
-        <Text 
-          fontSize={{ base: "13px", md: "14px" }} 
-          color={textColor} 
-          textAlign="center" 
-          mt={8} 
-          opacity={0.7}
-        >
-          We value your feedback and look forward to hearing from you!
-        </Text>
       </Container>
     </Box>
   );

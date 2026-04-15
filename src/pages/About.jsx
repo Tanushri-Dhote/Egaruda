@@ -12,652 +12,837 @@ import {
   Container,
   Divider,
   Badge,
+  Avatar,
+  ScaleFade,
+  SlideFade,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  Collapse,
+  useDisclosure,
+  Image,
+  List,
+  ListItem,
+  ListIcon,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import {
   FaHeart,
   FaRocket,
   FaShieldAlt,
-  FaCommentDots,
   FaLock,
-  FaSmile,
   FaGlobe,
   FaQuoteRight,
   FaCheckCircle,
-  FaComments,
   FaArrowLeft,
   FaArrowRight,
   FaUsers,
   FaStar,
-  FaRegClock,
+  FaBolt,
+  FaLeaf,
+  FaEye,
+  FaBullseye,
+  FaUserTie,
+  FaBriefcase,
+  FaMotorcycle,
+  FaTachometerAlt,
+  FaBatteryFull,
+  FaRoad,
+  FaCrown,
+  FaAward,
+  FaChartLine,
+  FaHandsHelping,
+  FaBuilding,
+  FaCalendarAlt,
+  FaChevronDown,
+  FaChevronUp,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaWhatsapp,
+  FaPlug,
+  FaCogs,
+  FaToolbox,
+  FaHeadset,
 } from "react-icons/fa";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
-const About = () => {
+const AboutSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const sliderRef = useRef(null);
-  
+
+  const { isOpen: isMissionOpen, onToggle: onMissionToggle } = useDisclosure({ defaultIsOpen: true });
+  const { isOpen: isVisionOpen, onToggle: onVisionToggle } = useDisclosure({ defaultIsOpen: false });
+
   const bgGradient = useColorModeValue(
-    "linear(to-b, #fff5f7, white)",
+    "linear(to-b, #f0fff4, white)",
     "linear(to-b, gray.900, #1a1a1a)"
   );
   const cardBg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.600", "gray.300");
   const headingColor = useColorModeValue("gray.800", "white");
-  const accentColor = useColorModeValue("pink.500", "pink.300");
+  const accentColor = useColorModeValue("green.500", "green.300");
   const borderColor = useColorModeValue("gray.200", "gray.700");
-  const quoteBg = useColorModeValue("pink.50", "gray.800");
+  const quoteBg = useColorModeValue("green.50", "gray.800");
   const subtleBg = useColorModeValue("gray.50", "gray.700");
 
-  const features = [
-    {
-      icon: FaComments,
-      title: "Real-Time Chatting",
-      description: "Smooth and fast messaging with instant delivery for uninterrupted conversations",
-      color: "blue.400",
-      stats: "< 100ms latency",
-    },
-    {
-      icon: FaLock,
-      title: "User Privacy First",
-      description: "End-to-end encryption and strong privacy controls for secure communication",
-      color: "green.400",
-      stats: "100% encrypted",
-    },
-    {
-      icon: FaSmile,
-      title: "Simple & Friendly Interface",
-      description: "Intuitive design that's easy to navigate for users of all ages",
-      color: "purple.400",
-      stats: "4.8/5 rating",
-    },
-    {
-      icon: FaShieldAlt,
-      title: "Safe Community",
-      description: "24/7 moderation and AI-powered systems for respectful interactions",
-      color: "red.400",
-      stats: "Active moderation",
-    },
-    {
-      icon: FaGlobe,
-      title: "24/7 Connectivity",
-      description: "Global availability with reliable servers across multiple continents",
-      color: "orange.400",
-      stats: "99.9% uptime",
-    },
-    {
-      icon: FaHeart,
-      title: "Meaningful Connections",
-      description: "Smart matching algorithms to help you find like-minded people",
-      color: "pink.400",
-      stats: "10k+ matches",
-    },
-    {
-      icon: FaUsers,
-      title: "Active Community",
-      description: "Join millions of active users engaging in real conversations daily",
-      color: "teal.400",
-      stats: "1M+ users",
-    },
-    {
-      icon: FaStar,
-      title: "Premium Features",
-      description: "Exclusive features for enhanced chatting experience",
-      color: "yellow.400",
-      stats: "Free tier available",
-    },
-    {
-      icon: FaRegClock,
-      title: "Instant Responses",
-      description: "Quick reply suggestions and smart notifications",
-      color: "cyan.400",
-      stats: "< 1s response",
-    },
+  // RMNA E-Scooty Models
+  const rmnaModels = [
+    { name: "Double Light", icon: FaStar, color: "yellow" },
+    { name: "Legendre LD", icon: FaStar, color: "orange" },
+    { name: "Mini Activa (CS)", icon: FaBolt, color: "blue" },
+    { name: "Big Daddy - CS3", icon: FaShieldAlt, color: "green" },
+    { name: "THAR - E4", icon: FaBolt, color: "red" },
+    { name: "BMW", icon: FaCrown, color: "purple" },
+    { name: "Momentum Q7", icon: FaCheckCircle, color: "teal" },
   ];
 
-  const slidesPerView = useBreakpointValue({ base: 1, md: 2, lg: 3 }) || 1;
-  const totalSlides = Math.ceil(features.length / slidesPerView);
+  // Battery Options
+  const batteryOptions = [
+    { type: "Lithium-ion Battery", voltages: "48V / 60V / 72V", life: "2-3 years", features: "Fast charging, Lightweight" },
+    { type: "Budget-friendly Battery", voltages: "48V / 60V", life: "1 year", features: "Cost-effective" },
+  ];
+
+  // Charger Options
+  const chargerOptions = [
+    { name: "Standard Charger", compatibility: "48V & 60V", time: "5-7 hours", feature: "Auto cut feature" },
+    { name: "Fast Charger", compatibility: "All voltages", time: "Reduced by 30-40%", feature: "Advanced safety, Ideal for commercial use" },
+  ];
+
+  // Spare Parts Categories
+  const spareParts = {
+    electrical: ["Controller", "Motor (Hub Motor)", "Wiring Kit", "Throttle", "Display Meter"],
+    mechanical: ["Brake Shoes / Disc Pads", "Suspension", "Tires & Tubes", "Alloy Wheels"],
+    accessories: ["Mobile Holder", "USB Charger Port", "Side Box", "LED Lights"],
+  };
+
+  // Services Offered
+  const servicesOffered = [
+    "Retail & Wholesale Supply",
+    "Dealership Support",
+    "After-Sales Service",
+    "Spare Parts Availability",
+  ];
+
+  // RMNA Addresses
+  const addresses = [
+    {
+      line1: "Village & Post- Bara, Teh - Haidergarh",
+      line2: "Near Neeraj Hotel, Sultanpur Road",
+      city: "Uttar Pradesh - 225126"
+    },
+    {
+      line1: "Ragad Ganj, Police Line, Tanda Road",
+      line2: "Akbarpur, Ambedkar Nagar",
+      city: "Uttar Pradesh - 224122"
+    }
+  ];
+
+  const handleMissionClick = () => {
+    if (!isMissionOpen) {
+      onMissionToggle();
+      if (isVisionOpen) onVisionToggle();
+    }
+  };
+
+  const handleVisionClick = () => {
+    if (!isVisionOpen) {
+      onVisionToggle();
+      if (isMissionOpen) onMissionToggle();
+    }
+  };
+
+  const totalSlides = 2;
 
   useEffect(() => {
     let interval;
-    if (!isHovered && !isTransitioning) {
+    if (!isHovered) {
       interval = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % totalSlides);
-      }, 3000);
+      }, 4000);
     }
     return () => clearInterval(interval);
-  }, [isHovered, isTransitioning, totalSlides]);
+  }, [isHovered, totalSlides]);
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  // Best Picks Items for RMNA
+  const bestPicksItems = [
+    {
+      title: "Reliable Performance",
+      icon: FaShieldAlt,
+      description: "Dependable and consistent performance with robust build quality for daily commuting needs",
+      stat: "✅ 2-3 Year Battery Life",
+      gradient: "linear(135deg, #4299e1, #2b6cb0)",
+      color: "blue"
+    },
+    {
+      title: "Eco-Friendly",
+      icon: FaLeaf,
+      description: "Zero emission electric scooters that help reduce carbon footprint and promote green mobility",
+      stat: "🌿 Zero Emission",
+      gradient: "linear(135deg, #48bb78, #276749)",
+      color: "green"
+    },
+    {
+      title: "Cost Effective",
+      icon: FaChartLine,
+      description: "Budget-friendly solutions with low maintenance costs and excellent value for money",
+      stat: "💰 Affordable Pricing",
+      gradient: "linear(135deg, #ed8936, #c05621)",
+      color: "orange"
+    },
+    {
+      title: "Fast Charging",
+      icon: FaPlug,
+      description: "Quick charging technology that gets you back on the road in no time",
+      stat: "⚡ 30-40% Faster Charging",
+      gradient: "linear(135deg, #9f7aea, #6b46c0)",
+      color: "purple"
+    }
+  ];
 
   return (
     <Box bg={bgGradient} minH="100vh">
       <Container maxW="1200px" py={{ base: 12, md: 16, lg: 20 }} px={{ base: 4, md: 6 }}>
-        {/* About Delbaram */}
-        <VStack 
-          spacing={{ base: 4, md: 6 }} 
-          align="flex-start" 
-          mb={{ base: 12, md: 16 }}
-          sx={{
-            animation: "fadeInLeft 0.8s ease-out",
-            "@keyframes fadeInLeft": {
-              "0%": { transform: "translateX(-30px)", opacity: 0 },
-              "100%": { transform: "translateX(0)", opacity: 1 },
-            },
-          }}
-        >
-          <Badge
-            colorScheme="pink"
-            fontSize={{ base: "sm", md: "md" }}
-            px={4}
-            py={1}
-            borderRadius="full"
-            alignSelf="flex-start"
-            mb={2}
-          >
-            Welcome to Delbaram
-          </Badge>
-          <Heading 
-            as="h1"
-            fontSize={{ base: "36px", md: "42px", lg: "48px" }}
-            fontWeight="bold"
-            color={headingColor}
-            lineHeight="1.2"
-            letterSpacing="tight"
-          >
-            About Delbaram
-          </Heading>
-          <Text 
-            fontSize={{ base: "18px", md: "20px", lg: "22px" }}
-            color={accentColor}
-            fontWeight="medium"
-            lineHeight="1.4"
-          >
-            Where Real Conversations Begin
-          </Text>
-          <Text 
-            fontSize={{ base: "16px", md: "17px", lg: "18px" }} 
-            color={textColor} 
-            lineHeight="1.7"
-            maxW="800px"
-          >
-            Delbaram is more than just an online chatting platform—it's a space where real conversations begin, 
-            meaningful connections grow, and people feel truly heard.
-          </Text>
-          <Text 
-            fontSize={{ base: "15px", md: "16px", lg: "17px" }} 
-            color={textColor} 
-            lineHeight="1.7"
-            maxW="800px"
-          >
-            In today's fast-paced digital world, finding genuine communication can be difficult. Delbaram was created 
-            with a simple yet powerful vision: to bring people closer through safe, engaging, and authentic conversations.
-          </Text>
-        </VStack>
 
-        {/* Mission & Vision */}
-        <Flex 
-          direction={{ base: "column", md: "row" }} 
-          gap={{ base: 4, md: 6 }} 
-          mb={{ base: 12, md: 16 }}
-          sx={{
-            animation: "fadeInRight 0.8s ease-out",
-            "@keyframes fadeInRight": {
-              "0%": { transform: "translateX(30px)", opacity: 0 },
-              "100%": { transform: "translateX(0)", opacity: 1 },
-            },
-          }}
-        >
-          {[
-            {
-              icon: FaRocket,
-              title: "Our Mission",
-              description: "Create a secure environment where users can chat freely and connect without barriers.",
-              gradient: "linear(to-r, pink.500, purple.500)",
-            },
-            {
-              icon: FaGlobe,
-              title: "Our Vision",
-              description: "A global platform where conversations are honest, respectful, and every voice is valued.",
-              gradient: "linear(to-r, blue.500, teal.500)",
-            },
-          ].map((item, index) => (
+        {/* Hero Section - RMNA Brand Story */}
+        <SlideFade in={true} offsetY="20px" delay={0.1}>
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            gap={{ base: 8, md: 12 }}
+            align="center"
+            mb={{ base: 12, md: 16 }}
+            bg={useColorModeValue("green.50", "gray.800")}
+            borderRadius="2xl"
+            p={{ base: 6, md: 8 }}
+            position="relative"
+            overflow="hidden"
+          >
             <Box
-              key={index}
-              flex={1}
-              bg={cardBg}
-              p={{ base: 5, md: 6 }}
-              borderRadius="2xl"
-              boxShadow="xl"
-              border="1px solid"
-              borderColor={borderColor}
-              _hover={{ 
-                transform: { md: "translateY(-8px)" }, 
-                boxShadow: "2xl",
-                borderColor: accentColor,
-              }}
-              transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+              position="absolute"
+              top={-50}
+              right={-50}
+              w="200px"
+              h="200px"
+              borderRadius="full"
+              bg="whiteAlpha.300"
+              zIndex={0}
+            />
+            <Box
+              position="absolute"
+              bottom={-30}
+              left={-30}
+              w="150px"
+              h="150px"
+              borderRadius="full"
+              bg="whiteAlpha.200"
+              zIndex={0}
+            />
+
+            {/* Left Side - Images Section */}
+            <Box
+              flex={{ base: "1", md: "0.4" }}
               position="relative"
-              overflow="hidden"
+              zIndex={1}
+              w={{ base: "100%", md: "auto" }}
             >
+              <SimpleGrid columns={2} spacing={4}>
+                <Box
+                  borderRadius="2xl"
+                  overflow="hidden"
+                  boxShadow="xl"
+                  transform="rotate(-2deg)"
+                  transition="all 0.3s ease"
+                  _hover={{ transform: "rotate(0deg) scale(1.02)" }}
+                >
+                  <Image
+                    src="/images/product-image-1.jpg"
+                    alt="RMNA Electric Scooter"
+                    w="100%"
+                    h={{ base: "340px", md: "360px" }}
+                    objectFit="cover"
+                    fallbackSrc="https://via.placeholder.com/400x360?text=RMNA+E-Scooty"
+                  />
+                </Box>
+
+                <Box
+                  borderRadius="2xl"
+                  overflow="hidden"
+                  boxShadow="xl"
+                  transform="rotate(2deg)"
+                  transition="all 0.3s ease"
+                  _hover={{ transform: "rotate(0deg) scale(1.02)" }}
+                  mt={{ base: 0, md: 8 }}
+                >
+                  <Image
+                    src="/images/product-image-2.jpg"
+                    alt="RMNA Electric Scooter"
+                    w="100%"
+                    h={{ base: "300px", md: "320px" }}
+                    objectFit="cover"
+                    fallbackSrc="https://via.placeholder.com/400x320?text=RMNA+E-Scooty"
+                  />
+                </Box>
+              </SimpleGrid>
+
               <Box
                 position="absolute"
-                top={0}
-                left={0}
-                right={0}
-                height="4px"
-                bgGradient={item.gradient}
-              />
-              <HStack spacing={4} mb={4}>
-                <Flex
-                  w={{ base: "45px", md: "50px" }}
-                  h={{ base: "45px", md: "50px" }}
-                  bg={useColorModeValue("pink.50", "gray.700")}
-                  borderRadius="lg"
-                  align="center"
-                  justify="center"
-                >
-                  <Icon as={item.icon} boxSize={{ base: 5, md: 6 }} color={accentColor} />
-                </Flex>
-                <Heading 
-                  as="h2"
-                  fontSize={{ base: "22px", md: "24px" }}
-                  fontWeight="semibold"
-                  color={headingColor}
-                >
-                  {item.title}
-                </Heading>
-              </HStack>
-              <Text 
-                fontSize={{ base: "15px", md: "16px" }}
-                color={textColor}
-                lineHeight="1.6"
-                pl={{ base: 0, md: "60px" }}
+                bottom={-10}
+                right={-10}
+                bgGradient="linear(to-r, #f97316, #fb923c, #22c55e, #15803d)"
+                borderRadius="full"
+                p={3}
+                boxShadow="lg"
+                sx={{
+                  animation: "floatIcon 3s ease-in-out infinite",
+                  "@keyframes floatIcon": {
+                    "0%": { transform: "translateY(0px)" },
+                    "50%": { transform: "translateY(-8px)" },
+                    "100%": { transform: "translateY(0px)" },
+                  },
+                }}
               >
-                {item.description}
-              </Text>
+                <Icon as={FaRocket} color="white" boxSize={6} />
+              </Box>
             </Box>
-          ))}
-        </Flex>
 
-        {/* What Makes Delbaram Special - Fixed Slider */}
-        <Box mb={{ base: 12, md: 16 }}>
-          <VStack spacing={4} textAlign="center" mb={{ base: 8, md: 10 }}>
-            <Heading 
-              as="h2"
-              fontSize={{ base: "32px", md: "38px", lg: "42px" }}
-              fontWeight="bold"
-              color={headingColor}
-              lineHeight="1.2"
-              letterSpacing="tight"
+            {/* Right Side - Content Section */}
+            <Box
+              flex={{ base: "1", md: "0.6" }}
+              position="relative"
+              zIndex={1}
+              w={{ base: "100%", md: "auto" }}
             >
-              What Makes Delbaram{' '}
-              <Box as="span" color={accentColor} display="inline-block">
-                Special?
+              <VStack spacing={{ base: 4, md: 6 }} align="flex-start">
+                <Badge
+                  bgGradient="linear(to-r, #f97316, #fb923c, #22c55e, #15803d)"
+                  color="white"
+                  fontSize={{ base: "sm", md: "md" }}
+                  px={4}
+                  py={2}
+                  borderRadius="full"
+                >
+                  <HStack spacing={2}>
+                    <Icon as={FaBolt} />
+                    <Text>RMNA E-Mobility Services</Text>
+                  </HStack>
+                </Badge>
+
+                <Text
+                  fontSize={{ base: "16px", md: "17px", lg: "18px" }}
+                  color={textColor}
+                  lineHeight="1.7"
+                >
+                  At <strong>RMNA E-Mobility Services</strong>, we are driven by a single mission — to <strong>redefine urban commuting</strong> with <strong>smart, sustainable, and stylish</strong> electric scooters. We believe the future of mobility is <strong>green, connected, and intelligent</strong>, and we are here to lead the change.
+                </Text>
+
+                <Text
+                  fontSize={{ base: "16px", md: "17px", lg: "18px" }}
+                  color={textColor}
+                  lineHeight="1.7"
+                >
+                  Our electric scooters are <strong>designed with precision, powered by innovation, and built for performance.</strong> We offer <strong>Reliable, Eco-Friendly, and Cost-Effective Solutions</strong> for all your mobility needs. Every ride you take with <strong>RMNA</strong> isn't just a journey — it's a <strong>step towards a cleaner, smarter, and better tomorrow.</strong>
+                </Text>
+
+                {/* Feature highlights */}
+                <HStack spacing={4} pt={4} wrap="wrap">
+                  <HStack spacing={2}>
+                    <Icon as={FaLeaf} color="green.500" />
+                    <Text fontSize="14px" color={textColor}>Eco-Friendly</Text>
+                  </HStack>
+                  <HStack spacing={2}>
+                    <Icon as={FaShieldAlt} color="orange.500" />
+                    <Text fontSize="14px" color={textColor}>Reliable</Text>
+                  </HStack>
+                  <HStack spacing={2}>
+                    <Icon as={FaChartLine} color="yellow.500" />
+                    <Text fontSize="14px" color={textColor}>Cost-Effective</Text>
+                  </HStack>
+                </HStack>
+              </VStack>
+            </Box>
+          </Flex>
+        </SlideFade>
+
+        {/* Mission & Vision | Director Profile Section */}
+        <SlideFade in={true} offsetY="20px" delay={0.2}>
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} mb={{ base: 12, md: 16 }}>
+
+            {/* Left Side - Mission & Vision Accordion */}
+            <Box>
+              <Heading
+                as="h2"
+                fontSize={{ base: "24px", md: "28px" }}
+                fontWeight="bold"
+                color={headingColor}
+                mb={6}
+                textAlign="center"
+              >
+                Mission & Vision
+              </Heading>
+
+              <VStack spacing={4} align="stretch">
+                {/* Mission Section */}
+                <Box
+                  bg={cardBg}
+                  borderRadius="2xl"
+                  border="1px solid"
+                  borderColor={borderColor}
+                  overflow="hidden"
+                  boxShadow={isMissionOpen ? "xl" : "md"}
+                  transition="all 0.3s"
+                >
+                  <Button
+                    w="100%"
+                    justifyContent="space-between"
+                    rightIcon={<Icon as={isMissionOpen ? FaChevronUp : FaChevronDown} />}
+                    onClick={handleMissionClick}
+                    bg={isMissionOpen ? "green.500" : cardBg}
+                    color={isMissionOpen ? "white" : headingColor}
+                    _hover={{ bg: isMissionOpen ? "green.600" : useColorModeValue("gray.100", "gray.700") }}
+                    borderRadius="xl"
+                    p={6}
+                    fontSize="xl"
+                    fontWeight="bold"
+                  >
+                    <HStack spacing={3}>
+                      <Icon as={FaBullseye} boxSize={6} />
+                      <Text>Our Mission</Text>
+                    </HStack>
+                  </Button>
+
+                  <Collapse in={isMissionOpen} animateOpacity>
+                    <Box p={6} pt={2}>
+                      <Divider mb={4} />
+                      <Text fontSize="md" color={textColor} lineHeight="1.7">
+                        To provide reliable, eco-friendly, and cost-effective electric mobility solutions that make sustainable transportation accessible to everyone, while delivering exceptional service and support.
+                      </Text>
+                      <HStack spacing={2} mt={4}>
+                        <Icon as={FaRocket} color="green.500" />
+                        <Text fontSize="sm" color="green.500" fontWeight="medium">Driving Green Mobility</Text>
+                      </HStack>
+                    </Box>
+                  </Collapse>
+                </Box>
+
+                {/* Vision Section */}
+                <Box
+                  bg={cardBg}
+                  borderRadius="2xl"
+                  border="1px solid"
+                  borderColor={borderColor}
+                  overflow="hidden"
+                  boxShadow={isVisionOpen ? "xl" : "md"}
+                  transition="all 0.3s"
+                >
+                  <Button
+                    w="100%"
+                    justifyContent="space-between"
+                    rightIcon={<Icon as={isVisionOpen ? FaChevronUp : FaChevronDown} />}
+                    onClick={handleVisionClick}
+                    bg={isVisionOpen ? "purple.500" : cardBg}
+                    color={isVisionOpen ? "white" : headingColor}
+                    _hover={{ bg: isVisionOpen ? "purple.600" : useColorModeValue("gray.100", "gray.700") }}
+                    borderRadius="xl"
+                    p={6}
+                    fontSize="xl"
+                    fontWeight="bold"
+                  >
+                    <HStack spacing={3}>
+                      <Icon as={FaEye} boxSize={6} />
+                      <Text>Our Vision</Text>
+                    </HStack>
+                  </Button>
+
+                  <Collapse in={isVisionOpen} animateOpacity>
+                    <Box p={6} pt={2}>
+                      <Divider mb={4} />
+                      <Text fontSize="md" color={textColor} lineHeight="1.7">
+                        To become a leading provider of electric mobility solutions across Uttar Pradesh and beyond, creating a network of dealerships and service centers that bring green transportation to every corner.
+                      </Text>
+                      <HStack spacing={2} mt={4}>
+                        <Icon as={FaGlobe} color="purple.500" />
+                        <Text fontSize="sm" color="purple.500" fontWeight="medium">Expanding Across India</Text>
+                      </HStack>
+                    </Box>
+                  </Collapse>
+                </Box>
+              </VStack>
+            </Box>
+
+            {/* Right Side - Director / Owner Profile */}
+            <Box>
+              <Heading
+                as="h2"
+                fontSize={{ base: "24px", md: "28px" }}
+                fontWeight="bold"
+                color={headingColor}
+                mb={6}
+                textAlign="center"
+              >
+                Founder's Profile
+              </Heading>
+
+              <Flex justify="center">
+                <Box
+                  w="100%"
+                  textAlign="center"
+                  p={6}
+                  bg={cardBg}
+                  borderRadius="2xl"
+                  border="1px solid"
+                  borderColor={borderColor}
+                  transition="all 0.3s"
+                  _hover={{ transform: "translateY(-5px)", boxShadow: "2xl", borderColor: accentColor }}
+                  position="relative"
+                  overflow="hidden"
+                >
+                  <Box
+                    position="absolute"
+                    top={0}
+                    left={0}
+                    right={0}
+                    h="100px"
+                    bgGradient="linear(to-r, #f97316, #fb923c, #22c55e, #15803d)"
+                    opacity={0.1}
+                  />
+
+                  <Avatar
+                    size="2xl"
+                    name="Abhishek Verma"
+                    src="/images/abhishek-verma.jpg"
+                    mb={4}
+                    mx="auto"
+                    boxSize={{ base: "120px", md: "130px" }}
+                  />
+
+                  <Heading as="h3" fontSize={{ base: "24px", md: "28px" }} fontWeight="bold" color={headingColor} mb={2}>
+                    ABHISHEK VERMA
+                  </Heading>
+
+                  <Badge
+                    bgGradient="linear(to-r, #f97316, #fb923c, #22c55e, #15803d)"
+                    color="white"
+                    px={4}
+                    py={2}
+                    borderRadius="full"
+                    fontSize="md"
+                    mb={4}
+                    display="inline-block"
+                  >
+                    <HStack spacing={2}>
+                      <Icon as={FaUserTie} />
+                      <Text>Founder & Director</Text>
+                    </HStack>
+                  </Badge>
+
+                  <VStack spacing={2} align="center" mb={4}>
+                    <HStack spacing={2}>
+                      <Icon as={FaBriefcase} color="green.500" />
+                      <Text fontSize="md" fontWeight="medium" color={textColor}>
+                        10+ Years of Experience in E-Mobility
+                      </Text>
+                    </HStack>
+
+                    <HStack spacing={2}>
+                      <Icon as={FaBuilding} color="purple.500" />
+                      <Text fontSize="md" color={textColor}>
+                        Founder of RMNA E-Mobility Services
+                      </Text>
+                    </HStack>
+                  </VStack>
+
+                  <Divider borderColor={borderColor} my={4} />
+
+                  <Box mt={5} p={4} bg={subtleBg} borderRadius="xl">
+                    <Text fontSize="sm" color={textColor} fontStyle="italic">
+                      "Our goal is to make electric mobility accessible to everyone in Uttar Pradesh. With reliable products, affordable pricing, and dedicated service, we're building a greener future one ride at a time."
+                    </Text>
+                  </Box>
+                </Box>
+              </Flex>
+            </Box>
+          </SimpleGrid>
+        </SlideFade>
+
+        {/* Spare Parts & Accessories Section */}
+        <SlideFade in={true} offsetY="20px" delay={0.35}>
+          <Box mb={{ base: 12, md: 16 }}>
+            <Heading as="h2" fontSize={{ base: "28px", md: "32px" }} fontWeight="bold" color={headingColor} mb={6} textAlign="center">
+              <Icon as={FaCogs} mr={2} /> Spare Parts & Accessories
+            </Heading>
+
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+              {/* Electrical Parts */}
+              <Box bg={cardBg} p={5} borderRadius="xl" border="1px solid" borderColor={borderColor}>
+                <HStack mb={3}>
+                  <Icon as={FaBolt} color="blue.500" boxSize={5} />
+                  <Heading as="h4" fontSize="lg" fontWeight="bold" color={headingColor}>Electrical Parts</Heading>
+                </HStack>
+                <List spacing={2}>
+                  {spareParts.electrical.map((part, idx) => (
+                    <ListItem key={idx} fontSize="sm" color={textColor}>
+                      <ListIcon as={FaCheckCircle} color="green.500" />
+                      {part}
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+
+              {/* Mechanical Parts */}
+              <Box bg={cardBg} p={5} borderRadius="xl" border="1px solid" borderColor={borderColor}>
+                <HStack mb={3}>
+                  <Icon as={FaToolbox} color="orange.500" boxSize={5} />
+                  <Heading as="h4" fontSize="lg" fontWeight="bold" color={headingColor}>Mechanical Parts</Heading>
+                </HStack>
+                <List spacing={2}>
+                  {spareParts.mechanical.map((part, idx) => (
+                    <ListItem key={idx} fontSize="sm" color={textColor}>
+                      <ListIcon as={FaCheckCircle} color="green.500" />
+                      {part}
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+
+              {/* Accessories */}
+              <Box bg={cardBg} p={5} borderRadius="xl" border="1px solid" borderColor={borderColor}>
+                <HStack mb={3}>
+                  <Icon as={FaHeart} color="red.500" boxSize={5} />
+                  <Heading as="h4" fontSize="lg" fontWeight="bold" color={headingColor}>Accessories</Heading>
+                </HStack>
+                <List spacing={2}>
+                  {spareParts.accessories.map((item, idx) => (
+                    <ListItem key={idx} fontSize="sm" color={textColor}>
+                      <ListIcon as={FaCheckCircle} color="green.500" />
+                      {item}
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            </SimpleGrid>
+          </Box>
+        </SlideFade>
+
+        {/* Services Offered Section */}
+        <SlideFade in={true} offsetY="20px" delay={0.4}>
+          <Box mb={{ base: 12, md: 16 }}>
+            <Heading as="h2" fontSize={{ base: "28px", md: "32px" }} fontWeight="bold" color={headingColor} mb={6} textAlign="center">
+              <Icon as={FaHeadset} mr={2} /> Services Offered
+            </Heading>
+
+            <Wrap spacing={4} justify="center">
+              {servicesOffered.map((service, idx) => (
+                <WrapItem key={idx}>
+                  <Badge
+                    bgGradient="linear(to-r, #f97316, #fb923c, #22c55e, #15803d)"
+                    color="white"
+                    px={6}
+                    py={3}
+                    borderRadius="full"
+                    fontSize="md"
+                  >
+                    <HStack spacing={2}>
+                      <Icon as={FaCheckCircle} />
+                      <Text>{service}</Text>
+                    </HStack>
+                  </Badge>
+                </WrapItem>
+              ))}
+            </Wrap>
+          </Box>
+        </SlideFade>
+
+        {/* Best Picks Slider Section */}
+        <Box mb={{ base: 12, md: 16 }}>
+          <VStack spacing={4} textAlign="center" mb={{ base: 6, md: 8 }}>
+            <Heading as="h2" fontSize={{ base: "28px", md: "32px", lg: "36px" }} fontWeight="bold" color={headingColor}>
+              Why Choose{' '}
+              <Box as="span" bgGradient="linear(to-r, #f97316, #fb923c, #22c55e, #15803d)" bgClip="text" display="inline-block">
+                RMNA
               </Box>
             </Heading>
-            <Text 
-              fontSize={{ base: "16px", md: "18px" }}
-              color={textColor}
-              maxW="600px"
-              lineHeight="1.6"
-            >
-              Features designed to make your chatting experience extraordinary
+            <Text fontSize={{ base: "14px", md: "16px" }} color={textColor}>
+              Reliable • Eco-Friendly • Cost-Effective Solutions
             </Text>
           </VStack>
 
-          <Box 
+          <Box
             position="relative"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* Slider Navigation */}
-            <HStack 
-              justify="space-between" 
-              position="absolute" 
-              top="50%" 
-              w="100%" 
-              transform="translateY(-50%)" 
-              zIndex={2}
-              px={{ base: 2, md: 4 }}
-            >
+            <HStack justify="space-between" position="absolute" top="50%" w="100%" transform="translateY(-50%)" zIndex={2} px={{ base: 2, md: 4 }}>
               <Button
-                onClick={() => {
-                  setIsTransitioning(true);
-                  setCurrentSlide((prev) => {
-                    const newVal = (prev - 1 + totalSlides) % totalSlides;
-                    setTimeout(() => setIsTransitioning(false), 500);
-                    return newVal;
-                  });
-                }}
+                onClick={prevSlide}
                 borderRadius="full"
                 bg={cardBg}
                 boxShadow="lg"
                 _hover={{ bg: accentColor, color: "white", transform: "scale(1.1)" }}
-                size={{ base: "sm", md: "md" }}
-                transition="all 0.2s"
-                isDisabled={isTransitioning}
+                size="sm"
               >
-                <Icon as={FaArrowLeft} />
+                <Icon as={FaArrowLeft} boxSize={3} />
               </Button>
               <Button
-                onClick={() => {
-                  setIsTransitioning(true);
-                  setCurrentSlide((prev) => {
-                    const newVal = (prev + 1) % totalSlides;
-                    setTimeout(() => setIsTransitioning(false), 500);
-                    return newVal;
-                  });
-                }}
+                onClick={nextSlide}
                 borderRadius="full"
                 bg={cardBg}
                 boxShadow="lg"
                 _hover={{ bg: accentColor, color: "white", transform: "scale(1.1)" }}
-                size={{ base: "sm", md: "md" }}
-                transition="all 0.2s"
-                isDisabled={isTransitioning}
+                size="sm"
               >
-                <Icon as={FaArrowRight} />
+                <Icon as={FaArrowRight} boxSize={3} />
               </Button>
             </HStack>
 
-            {/* Slider Content */}
-            <Box overflow="hidden" borderRadius="2xl" ref={sliderRef}>
-              <Flex
-                transition={isTransitioning ? "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)" : "none"}
-                transform={`translateX(-${currentSlide * 100}%)`}
-                gap={{ base: 3, md: 4 }}
-              >
-                {Array.from({ length: totalSlides }).map((_, slideIndex) => (
-                  <Flex
-                    key={slideIndex}
-                    minW="100%"
-                    gap={{ base: 3, md: 4 }}
-                    px={{ base: 1, md: 2 }}
-                  >
-                    {features
-                      .slice(slideIndex * slidesPerView, (slideIndex + 1) * slidesPerView)
-                      .map((feature, index) => (
-                        <Box
-                          key={`${feature.title}-${index}`}
-                          flex={1}
-                          bg={cardBg}
-                          p={{ base: 4, md: 5, lg: 6 }}
-                          borderRadius="xl"
-                          boxShadow="lg"
-                          border="1px solid"
-                          borderColor={borderColor}
-                          _hover={{
-                            transform: { md: "translateY(-8px) scale(1.02)" },
-                            boxShadow: "2xl",
-                            borderColor: accentColor,
-                          }}
-                          transition="all 0.3s ease"
-                          position="relative"
-                          overflow="hidden"
+            <Box overflow="hidden" borderRadius="xl">
+              <Flex transition="transform 0.5s ease-in-out" transform={`translateX(-${currentSlide * 100}%)`}>
+                {/* Slide 1 */}
+                <Flex minW="100%" gap={{ base: 3, md: 4 }} px={{ base: 1, md: 2 }}>
+                  {bestPicksItems.slice(0, 2).map((item, idx) => (
+                    <Box
+                      key={idx}
+                      flex={1}
+                      bg={cardBg}
+                      p={{ base: 4, md: 5 }}
+                      borderRadius="xl"
+                      boxShadow="md"
+                      border="1px solid"
+                      borderColor={borderColor}
+                      _hover={{
+                        transform: "translateY(-5px) scale(1.01)",
+                        boxShadow: "lg",
+                        borderColor: accentColor,
+                      }}
+                      transition="all 0.3s ease"
+                      textAlign="center"
+                    >
+                      <Flex justify="center" mb={3}>
+                        <Flex
+                          w={{ base: "60px", md: "70px" }}
+                          h={{ base: "60px", md: "70px" }}
+                          bgGradient={item.gradient}
+                          borderRadius="full"
+                          align="center"
+                          justify="center"
+                          boxShadow="md"
                         >
-                          {/* Top gradient bar */}
-                          <Box
-                            position="absolute"
-                            top={0}
-                            left={0}
-                            right={0}
-                            height="3px"
-                            bgGradient={`linear(to-r, ${feature.color}, ${accentColor})`}
-                          />
+                          <Icon as={item.icon} boxSize={{ base: 6, md: 7 }} color="white" />
+                        </Flex>
+                      </Flex>
 
-                          <Flex direction="column" height="100%">
-                            <Flex
-                              w={{ base: "45px", md: "50px" }}
-                              h={{ base: "45px", md: "50px" }}
-                              bg={`${feature.color}15`}
-                              borderRadius="lg"
-                              align="center"
-                              justify="center"
-                              mb={4}
-                              sx={{
-                                animation: "floatIcon 3s ease-in-out infinite",
-                                "@keyframes floatIcon": {
-                                  "0%": { transform: "translateY(0px)" },
-                                  "50%": { transform: "translateY(-5px)" },
-                                  "100%": { transform: "translateY(0px)" },
-                                },
-                              }}
-                            >
-                              <Icon 
-                                as={feature.icon} 
-                                boxSize={{ base: 5, md: 6 }} 
-                                color={feature.color}
-                              />
-                            </Flex>
-                            
-                            <Heading 
-                              as="h3"
-                              fontSize={{ base: "16px", md: "18px", lg: "20px" }}
-                              fontWeight="semibold"
-                              color={headingColor}
-                              mb={2}
-                              lineHeight="1.4"
-                            >
-                              {feature.title}
-                            </Heading>
-                            
-                            <Text 
-                              fontSize={{ base: "13px", md: "14px", lg: "15px" }}
-                              color={textColor}
-                              lineHeight="1.6"
-                              mb={3}
-                              flex="1"
-                            >
-                              {feature.description}
-                            </Text>
-                            
-                            <Badge
-                              colorScheme="pink"
-                              variant="subtle"
-                              alignSelf="flex-start"
-                              px={2}
-                              py={1}
-                              borderRadius="md"
-                              fontSize="xs"
-                            >
-                              {feature.stats}
-                            </Badge>
-                          </Flex>
-                        </Box>
-                      ))}
-                  </Flex>
-                ))}
+                      <Heading as="h3" fontSize={{ base: "18px", md: "20px" }} fontWeight="bold" color={headingColor} mb={2}>
+                        {item.title}
+                      </Heading>
+
+                      <Text fontSize={{ base: "12px", md: "13px" }} color={textColor} lineHeight="1.5" mb={3}>
+                        {item.description}
+                      </Text>
+
+                      <Badge
+                        bgGradient={`linear(to-r, ${item.color}.500, ${item.color}.600)`}
+                        color="white"
+                        px={3}
+                        py={1}
+                        borderRadius="full"
+                        fontSize="xs"
+                      >
+                        {item.stat}
+                      </Badge>
+                    </Box>
+                  ))}
+                </Flex>
+
+                {/* Slide 2 */}
+                <Flex minW="100%" gap={{ base: 3, md: 4 }} px={{ base: 1, md: 2 }}>
+                  {bestPicksItems.slice(2, 4).map((item, idx) => (
+                    <Box
+                      key={idx}
+                      flex={1}
+                      bg={cardBg}
+                      p={{ base: 4, md: 5 }}
+                      borderRadius="xl"
+                      boxShadow="md"
+                      border="1px solid"
+                      borderColor={borderColor}
+                      _hover={{
+                        transform: "translateY(-5px) scale(1.01)",
+                        boxShadow: "lg",
+                        borderColor: accentColor,
+                      }}
+                      transition="all 0.3s ease"
+                      textAlign="center"
+                    >
+                      <Flex justify="center" mb={3}>
+                        <Flex
+                          w={{ base: "60px", md: "70px" }}
+                          h={{ base: "60px", md: "70px" }}
+                          bgGradient={item.gradient}
+                          borderRadius="full"
+                          align="center"
+                          justify="center"
+                          boxShadow="md"
+                        >
+                          <Icon as={item.icon} boxSize={{ base: 6, md: 7 }} color="white" />
+                        </Flex>
+                      </Flex>
+
+                      <Heading as="h3" fontSize={{ base: "18px", md: "20px" }} fontWeight="bold" color={headingColor} mb={2}>
+                        {item.title}
+                      </Heading>
+
+                      <Text fontSize={{ base: "12px", md: "13px" }} color={textColor} lineHeight="1.5" mb={3}>
+                        {item.description}
+                      </Text>
+
+                      <Badge
+                        bgGradient={`linear(to-r, ${item.color}.500, ${item.color}.600)`}
+                        color="white"
+                        px={3}
+                        py={1}
+                        borderRadius="full"
+                        fontSize="xs"
+                      >
+                        {item.stat}
+                      </Badge>
+                    </Box>
+                  ))}
+                </Flex>
               </Flex>
             </Box>
 
-            {/* Slider Dots */}
-            <HStack justify="center" mt={6} spacing={2}>
-              {Array.from({ length: totalSlides }).map((_, index) => (
+            <HStack justify="center" mt={5} spacing={2}>
+              {[0, 1].map((index) => (
                 <Box
                   key={index}
-                  w={currentSlide === index ? "32px" : "8px"}
-                  h="8px"
+                  w={currentSlide === index ? "30px" : "8px"}
+                  h="6px"
                   borderRadius="full"
                   bg={currentSlide === index ? accentColor : borderColor}
                   cursor="pointer"
-                  onClick={() => {
-                    setIsTransitioning(true);
-                    setCurrentSlide(index);
-                    setTimeout(() => setIsTransitioning(false), 500);
-                  }}
+                  onClick={() => goToSlide(index)}
                   transition="all 0.3s ease"
-                  _hover={{ bg: accentColor, opacity: 0.8 }}
                 />
               ))}
             </HStack>
           </Box>
-        </Box>
-
-        {/* Join Community Section */}
-        <Box
-          bg={quoteBg}
-          borderRadius="2xl"
-          p={{ base: 6, md: 8, lg: 10 }}
-          position="relative"
-          boxShadow="2xl"
-          sx={{
-            animation: "zoomIn 0.8s ease-out",
-            "@keyframes zoomIn": {
-              "0%": { transform: "scale(0.95)", opacity: 0 },
-              "100%": { transform: "scale(1)", opacity: 1 },
-            },
-          }}
-        >
-          <Icon
-            as={FaQuoteRight}
-            position="absolute"
-            top={{ base: 4, md: 6 }}
-            right={{ base: 4, md: 6 }}
-            boxSize={{ base: 12, md: 16 }}
-            color={accentColor}
-            opacity={0.1}
-          />
-          
-          <VStack spacing={{ base: 5, md: 6 }} align="flex-start" maxW="900px">
-            <Heading 
-              as="h2"
-              fontSize={{ base: "28px", md: "32px", lg: "36px" }}
-              fontWeight="bold"
-              color={headingColor}
-              lineHeight="1.2"
-            >
-              Join the Delbaram Community
-            </Heading>
-            
-            <Text 
-              fontSize={{ base: "16px", md: "17px", lg: "18px" }}
-              color={textColor}
-              lineHeight="1.7"
-            >
-              At Delbaram, we believe conversations have the power to change moods, build relationships, 
-              and create lasting bonds.
-            </Text>
-            
-            <Text 
-              fontSize={{ base: "16px", md: "17px", lg: "18px" }}
-              color={textColor}
-              lineHeight="1.7"
-            >
-              We're constantly improving our platform to make your chatting experience smoother, safer, 
-              and more enjoyable.
-            </Text>
-            
-            <Divider borderColor={borderColor} my={2} />
-            
-            <VStack align="flex-start" spacing={4} w="100%">
-              <Heading 
-                as="h3"
-                fontSize={{ base: "20px", md: "22px" }}
-                fontWeight="semibold"
-                color={headingColor}
-              >
-                Why join us?
-              </Heading>
-              
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} w="100%">
-                {[
-                  "Real conversations with real people",
-                  "Safe and moderated environment",
-                  "No judgment, just genuine connections",
-                  "Available 24/7 worldwide",
-                  "Free to join and use",
-                  "Active community support",
-                ].map((reason, i) => (
-                  <HStack 
-                    key={i} 
-                    spacing={3}
-                    p={3}
-                    bg={subtleBg}
-                    borderRadius="lg"
-                    sx={{
-                      animation: `fadeInRight 0.5s ease-out ${i * 0.1}s both`,
-                      "@keyframes fadeInRight": {
-                        "0%": { opacity: 0, transform: "translateX(-10px)" },
-                        "100%": { opacity: 1, transform: "translateX(0)" },
-                      },
-                    }}
-                  >
-                    <Icon as={FaCheckCircle} color="green.400" boxSize={4} />
-                    <Text fontSize={{ base: "14px", md: "15px" }} color={textColor}>
-                      {reason}
-                    </Text>
-                  </HStack>
-                ))}
-              </SimpleGrid>
-            </VStack>
-
-            <HStack spacing={4} mt={4} wrap="wrap" gap={3}>
-              <Button
-                size={{ base: "md", md: "lg" }}
-                bg="pink.500"
-                color="white"
-                _hover={{ 
-                  bg: "pink.600", 
-                  transform: { md: "scale(1.05) translateY(-2px)" },
-                  boxShadow: "xl",
-                }}
-                borderRadius="full"
-                px={{ base: 6, md: 8 }}
-                leftIcon={<FaCommentDots />}
-                fontSize={{ base: "15px", md: "16px" }}
-                fontWeight="semibold"
-                transition="all 0.3s"
-              >
-                Start Chatting
-              </Button>
-              <Button
-                size={{ base: "md", md: "lg" }}
-                variant="ghost"
-                color={accentColor}
-                _hover={{ bg: "whiteAlpha.200", transform: { md: "scale(1.05)" } }}
-                fontSize={{ base: "15px", md: "16px" }}
-                fontWeight="medium"
-              >
-                Learn More →
-              </Button>
-            </HStack>
-
-            <Text 
-              fontSize={{ base: "14px", md: "15px" }}
-              color={textColor} 
-              fontStyle="italic"
-              opacity={0.8}
-            >
-              "Start chatting. Start connecting. Welcome to Delbaram."
-            </Text>
-          </VStack>
         </Box>
       </Container>
     </Box>
   );
 };
 
-// Helper hook for responsive breakpoints
-function useBreakpointValue(values) {
-  const [value, setValue] = useState(values.base);
-  
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024 && values.lg) {
-        setValue(values.lg);
-      } else if (window.innerWidth >= 768 && values.md) {
-        setValue(values.md);
-      } else {
-        setValue(values.base);
-      }
-    };
-    
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [values]);
-  
-  return value;
-}
-
-export default About;
+export default AboutSection;

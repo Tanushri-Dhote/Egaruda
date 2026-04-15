@@ -11,6 +11,11 @@ import About from "./pages/About";
 import Help from "./pages/Help";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
+import Gallary from "./pages/Gallary";
+import ProductSlider from './pages/productslider';
+import ProductShowcase from "./pages/ProductShowcase";
+import ContactBanner from "./pages/ContactBanner";
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   return (
@@ -24,9 +29,11 @@ function App() {
           element={
             <>
               <Hero />
+              <ProductShowcase />
               <Features />
-              <CTA />
-              <LegalSection />
+              {/* <CTA /> */}
+              <ContactBanner/>
+             <ProductSlider />
             </>
           }
         />
@@ -37,9 +44,11 @@ function App() {
 
         {/* ✅ OTHER PAGES */}
         <Route path="/about" element={<About />} />
+        <Route path="/gallery" element={<Gallary />} />
         <Route path="/help" element={<Help />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/products/:slug" element={<ProductDetail />} />
       </Routes>
 
       <Footer />
