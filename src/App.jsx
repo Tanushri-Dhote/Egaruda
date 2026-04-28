@@ -16,6 +16,8 @@ import ProductSlider from './pages/productslider';
 import ProductShowcase from "./pages/ProductShowcase";
 import ContactBanner from "./pages/ContactBanner";
 import ProductDetail from "./pages/ProductDetail";
+import ScooterSlider from "./components/ScooterSlider";
+import { BiBorderRadius } from "react-icons/bi";
 
 function App() {
   return (
@@ -28,12 +30,13 @@ function App() {
           path="/"
           element={
             <>
+              <ScooterSlider  /> 
               <Hero />
               <ProductShowcase />
               <Features />
               {/* <CTA /> */}
-              <ContactBanner/>
-             <ProductSlider />
+              <ContactBanner />
+              <ProductSlider />
             </>
           }
         />
