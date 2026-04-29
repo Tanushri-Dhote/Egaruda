@@ -61,10 +61,7 @@ const HelpSupport = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [expandedItems, setExpandedItems] = useState({});
   
-  const bgGradient = useColorModeValue(
-    "linear(to-b, #fff5f7, white)",
-    "linear(to-b, gray.900, #1a1a1a)"
-  );
+  const bgColor = useColorModeValue("#fff5f7", "#1a1a1a");
   const cardBg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.600", "gray.300");
   const headingColor = useColorModeValue("gray.800", "white");
@@ -154,7 +151,7 @@ const HelpSupport = () => {
   }, [searchTerm]);
 
   return (
-    <Box bg={bgGradient} minH="100vh">
+    <Box bg={bgColor} minH="100vh">
       {/* Hero Section with Parallax Effect */}
       <Box
         bg={useColorModeValue("pink.500", "pink.600")}
@@ -327,7 +324,7 @@ const HelpSupport = () => {
               left={0}
               right={0}
               height="4px"
-              bgGradient="linear(to-r, pink.500, purple.500)"
+              bg="#ec4899"
             />
             <VStack spacing={4} align="center" textAlign="center">
               <Icon 
@@ -671,7 +668,7 @@ const HelpSupport = () => {
                   left={0}
                   right={0}
                   height="4px"
-                  bgGradient={`linear(to-r, ${item.color}.400, ${item.color}.500)`}
+                  bg={`${item.color}.500`}
                 />
                 <Flex
                   w={{ base: "60px", md: "70px" }}

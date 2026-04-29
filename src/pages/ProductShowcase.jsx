@@ -4,20 +4,20 @@ import {
   Heading,
   Text,
   Button,
-  Flex,
   SimpleGrid,
   Image,
   VStack,
-  HStack,
-  Badge,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const ProductShowcase = () => {
-  // RMNA E-Mobility Products based on PDF
+  const navigate = useNavigate();
+
   const products = [
     {
       id: 1,
+      slug: "double-light",
       title: "Double Light",
       subtitle: "WITH POWER",
       image: "/images/Double Light.jpeg",
@@ -26,6 +26,7 @@ const ProductShowcase = () => {
     },
     {
       id: 2,
+      slug: "legendre-ld",
       title: "Legendre LD",
       subtitle: "Luxury Performance",
       image: "/images/Legender- LD.jpeg",
@@ -34,6 +35,7 @@ const ProductShowcase = () => {
     },
     {
       id: 3,
+      slug: "big-daddy-cs3",
       title: "Big Daddy - CS3",
       subtitle: "Heavy Duty Power",
       image: "/images/Big Daddy- CS3.jpeg",
@@ -42,12 +44,14 @@ const ProductShowcase = () => {
     },
   ];
 
+  const featuredSlug = "bmw";
+
   return (
     <Box bg="#f8f5f0" py={{ base: 12, md: 16 }} px={4}>
       <Box maxW="1200px" mx="auto">
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} alignItems="center">
-          
-          {/* Left Column - Three Stacked Cards */}
+
+          {/* Left Column — Three Stacked Cards */}
           <VStack spacing={10}>
             {products.map((product) => (
               <Box
@@ -57,7 +61,10 @@ const ProductShowcase = () => {
                 overflow="hidden"
                 boxShadow="lg"
                 position="relative"
-                _hover={{ transform: "translateY(-8px)", transition: "0.3s" }}
+                cursor="pointer"
+                transition="transform 0.3s"
+                _hover={{ transform: "translateY(-8px)" }}
+                onClick={() => navigate(`/products/${product.slug}`)}
               >
                 <Image
                   src={product.image}
@@ -69,12 +76,7 @@ const ProductShowcase = () => {
                 />
 
                 <Box p={6}>
-                  <Text
-                    fontSize="sm"
-                    color="orange.500"
-                    fontWeight="medium"
-                    mb={2}
-                  >
+                  <Text fontSize="sm" color="orange.500" fontWeight="medium" mb={2}>
                     {product.tag}
                   </Text>
 
@@ -88,12 +90,7 @@ const ProductShowcase = () => {
                     {product.title}
                   </Heading>
 
-                  <Text
-                    fontSize="lg"
-                    fontWeight="semibold"
-                    color="gray.700"
-                    mb={4}
-                  >
+                  <Text fontSize="lg" fontWeight="semibold" color="gray.700" mb={4}>
                     {product.subtitle}
                   </Text>
 
@@ -102,7 +99,7 @@ const ProductShowcase = () => {
                   </Text>
 
                   <Button
-                    rightIcon="→"
+                    rightIcon={<>→</>}
                     bg="#e07a2f"
                     color="white"
                     _hover={{ bg: "#c86a28" }}
@@ -110,6 +107,10 @@ const ProductShowcase = () => {
                     py={6}
                     fontWeight="bold"
                     borderRadius="md"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/products/${product.slug}`);
+                    }}
                   >
                     Read More
                   </Button>
@@ -118,7 +119,7 @@ const ProductShowcase = () => {
             ))}
           </VStack>
 
-          {/* Right Column - Large Single Image with Text */}
+          {/* Right Column — Featured Product */}
           <Box
             bg="white"
             borderRadius="xl"
@@ -127,9 +128,11 @@ const ProductShowcase = () => {
             position="relative"
             h="full"
             minH={{ base: "500px", lg: "650px" }}
+            cursor="pointer"
+            onClick={() => navigate(`/products/${featuredSlug}`)}
           >
             <Image
-              src="/images/product-image-2.jpg"
+              src="/images/BMW.jpeg"
               alt="BMW E-Scooty"
               w="100%"
               h="100%"
@@ -161,6 +164,10 @@ const ProductShowcase = () => {
                 py={6}
                 fontWeight="bold"
                 _hover={{ bg: "gray.100" }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/products/${featuredSlug}`);
+                }}
               >
                 Explore Collection
               </Button>

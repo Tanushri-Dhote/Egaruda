@@ -7,6 +7,10 @@ const config = {
 
 const theme = extendTheme({
   config,
+  fonts: {
+    heading: "'Outfit', sans-serif",
+    body: "'DM Sans', sans-serif",
+  },
   colors: {
     brand: {
       500: "#38A169", // green

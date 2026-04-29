@@ -16,7 +16,7 @@ import {
   Divider,
   Image,
   Collapse,
-  useDisclosure,        // ← This was missing!
+  useDisclosure,      
 } from '@chakra-ui/react';
 
 import {
@@ -87,7 +87,7 @@ const Navbar = () => {
     >
       <Flex
         px={{ base: 4, md: 8, lg: 12 }}
-        py={{ base: 3, md: 4 }}
+        py={{ base: 2, md: 3 }}
         align="center"
         justify="space-between"
       >
@@ -103,7 +103,7 @@ const Navbar = () => {
           <Image
             src="/images/RMNA-without-bg.png"
             alt="RMNA Logo"
-            h={{ base: "70px", md: "80px" }}
+            h={{ base: "100px", md: "110px" }}
             objectFit="contain"
           />
          
@@ -170,10 +170,10 @@ const Navbar = () => {
 
           <Button
             leftIcon={<PhoneIcon />}
-            bgGradient="linear(to-r, orange.500, orange.600)"
+            bg="orange.500"
             color="white"
             _hover={{
-              bgGradient: "linear(to-r, orange.600, orange.700)",
+              bg: "orange.600",
               transform: "translateY(-2px)",
               boxShadow: "lg",
             }}
@@ -266,7 +266,7 @@ const Navbar = () => {
 
           <Button
             leftIcon={<PhoneIcon />}
-            bgGradient="linear(to-r, orange.500, orange.600)"
+            bg="orange.500"
             color="white"
             mt={6}
             py={7}

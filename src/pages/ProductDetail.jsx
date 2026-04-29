@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+
 import {
   Box,
   Container,
@@ -12,27 +13,94 @@ import {
   HStack,
   Badge,
   Divider,
-  IconButton,
-  Grid,
   SimpleGrid,
   useColorModeValue,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Progress,
+  Icon,
+  Tooltip,
+  ScaleFade,
+  SlideFade,
+  Wrap
 } from '@chakra-ui/react';
-import { ArrowBackIcon, PhoneIcon, EmailIcon } from '@chakra-ui/icons';
-import { FaWhatsapp, FaBatteryFull, FaBolt, FaTachometerAlt, FaWeightHanging, FaClock } from 'react-icons/fa';
+
+import { keyframes } from '@emotion/react';
+import { ArrowBackIcon, PhoneIcon, CheckIcon, StarIcon } from '@chakra-ui/icons';
+import {
+  FaWhatsapp,
+  FaBatteryFull,
+  FaBolt,
+  FaTachometerAlt,
+  FaWeightHanging,
+  FaClock,
+  FaRoad,
+  FaPlug,
+  FaCogs,
+  FaShieldAlt,
+  FaThumbsUp,
+  FaTruck,
+  FaHeadset,
+  FaGem,
+  FaArrowRight,
+  FaCheckCircle,
+} from 'react-icons/fa';
+import { MdElectricBolt, MdSpeed, MdVerified } from 'react-icons/md';
+
+const float = keyframes`
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+`;
+
+const glow = keyframes`
+  0% { box-shadow: 0 0 5px rgba(34,197,94,0.2); }
+  50% { box-shadow: 0 0 20px rgba(34,197,94,0.4); }
+  100% { box-shadow: 0 0 5px rgba(34,197,94,0.2); }
+`;
 
 const ProductDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  // RMNA E-Mobility Products Data based on PDF
   const products = {
-    // E-Scooty Models from PDF
+    'single-light': {
+      name: 'Single Light',
+      category: 'E-Scooty',
+      subCategory: 'Entry Series',
+      image: '/images/Single Light.jpeg',
+      price: '₹ 37,000',
+      description: 'The Single Light electric scooter is your ideal entry into clean, affordable electric mobility. Lightweight and easy to handle, it is perfect for daily short commutes and city errands.',
+      features: [
+        'Single LED Headlight',
+        'Lightweight Frame',
+        'Comfortable Seating',
+        'USB Charging Port',
+        'Digital Speedometer',
+        'Side Stand Sensor',
+      ],
+      colors: ['#000000', '#FFFFFF', '#FF0000', '#1E3A8A'],
+      specs: {
+        'Top Speed': '45 km/h',
+        'Range': '65 km per charge',
+        'Motor Power': '1000W',
+        'Battery': '48V 24Ah Lithium-ion',
+        'Charging Time': '4-5 hours',
+        'Brakes': 'Drum Brakes',
+        'Tires': 'Steel Wheels',
+      },
+      rating: 4.7,
+      reviews: 184,
+    },
     'double-light': {
       name: 'Double Light',
       category: 'E-Scooty',
       subCategory: 'Standard Series',
       image: '/images/Double Light.jpeg',
-      price: '₹ 85,000',
+      price: '₹ 38,000',
       description: 'The Double Light electric scooter offers a perfect blend of style, performance, and affordability. Ideal for daily commuting with its sleek design and reliable performance.',
       features: [
         'Dual Headlight Design',
@@ -51,15 +119,45 @@ const ProductDetail = () => {
         'Charging Time': '5-6 hours',
         'Brakes': 'Disc Brakes',
         'Tires': 'Alloy Wheels with Tubeless Tires',
-      }
+      },
+      rating: 4.8,
+      reviews: 128,
+    },
+    'cs2': {
+      name: 'CS2',
+      category: 'E-Scooty',
+      subCategory: 'Luxury Series',
+      image: '/images/Luxury- CS2.jpeg',
+      price: '₹ 52,000',
+      description: 'The CS2 blends luxury aesthetics with robust electric performance. A premium choice for riders who want a head-turning scooter without breaking the bank.',
+      features: [
+        'Luxury Design & Finish',
+        'Digital Instrument Cluster',
+        'Regenerative Braking',
+        'LED Lighting System',
+        'Anti-Theft Alarm',
+        'USB Charging Port',
+      ],
+      colors: ['#1E293B', '#C0C0C0', '#7C3AED', '#DC2626'],
+      specs: {
+        'Top Speed': '58 km/h',
+        'Range': '85 km per charge',
+        'Motor Power': '1500W',
+        'Battery': '60V 30Ah Lithium-ion',
+        'Charging Time': '5-6 hours',
+        'Brakes': 'Disc Brakes',
+        'Tires': 'Alloy Wheels',
+      },
+      rating: 4.8,
+      reviews: 102,
     },
     'legendre-ld': {
       name: 'Legendre LD',
       category: 'E-Scooty',
       subCategory: 'Premium Series',
       image: '/images/Legender- LD.jpeg',
-      price: '₹ 95,000',
-      description: 'Legendre LD combines elegance with power. This premium electric scooter is designed for those who seek style without compromising on performance.',
+      price: '₹ 50,000',
+      description: 'Legendre LD combines elegance with power. This classic electric scooter is designed for those who seek style without compromising on performance.',
       features: [
         'Premium Build Quality',
         'Long Range Battery',
@@ -77,17 +175,20 @@ const ProductDetail = () => {
         'Charging Time': '5-6 hours',
         'Brakes': 'Disc Brakes (Front & Rear)',
         'Tires': 'Alloy Wheels',
-      }
+      },
+      rating: 4.9,
+      reviews: 95,
     },
+
     'mini-activa-cs': {
-      name: 'Mini Activa (CS)',
+      name: 'CS (Mini Activa)',
       category: 'E-Scooty',
       subCategory: 'Compact Series',
       image: '/images/Mini Activa (CS).jpeg',
-      price: '₹ 75,000',
-      description: 'Compact, lightweight, and perfect for city riding. The Mini Activa (CS) is designed for easy maneuverability and efficient daily commuting.',
+      price: '₹ 51,000',
+      description: 'Compact, lightweight and perfect for city riding. The CS Mini Activa is designed for easy maneuverability and efficient daily commuting through congested streets.',
       features: [
-        'Compact Design',
+        'Compact Activa-Style Design',
         'Lightweight Frame',
         'Easy Parking',
         'LED Headlight',
@@ -103,14 +204,16 @@ const ProductDetail = () => {
         'Charging Time': '4-5 hours',
         'Brakes': 'Drum Brakes',
         'Tires': 'Steel Wheels',
-      }
+      },
+      rating: 4.7,
+      reviews: 210,
     },
     'big-daddy-cs3': {
       name: 'Big Daddy - CS3',
       category: 'E-Scooty',
       subCategory: 'Heavy Duty Series',
       image: '/images/Big Daddy- CS3.jpeg',
-      price: '₹ 1,10,000',
+      price: '₹ 54,000',
       description: 'Big Daddy CS3 is built for power and durability. Perfect for heavy-duty use and long-distance commuting with exceptional battery life.',
       features: [
         'Heavy Duty Build',
@@ -129,14 +232,72 @@ const ProductDetail = () => {
         'Charging Time': '6-7 hours',
         'Brakes': 'Dual Disc Brakes',
         'Tires': 'Heavy Duty Alloy Wheels',
-      }
+      },
+      rating: 4.9,
+      reviews: 67,
+    },
+    'ola-pro': {
+      name: 'OLA Pro',
+      category: 'E-Scooty',
+      subCategory: 'Smart Series',
+      image: '/images/OLA Pro.jpeg',
+      price: '₹ 58,000',
+      description: 'The OLA Pro brings smart connectivity and futuristic design to everyday commuting. Packed with tech features and a powerful motor for a smooth, intelligent ride.',
+      features: [
+        'Smart App Connectivity',
+        'Digital Dashboard',
+        'Hill Assist',
+        'Cruise Control',
+        'Keyless Entry',
+        'Fast Charging Support',
+      ],
+      colors: ['#EF4444', '#000000', '#FFFFFF', '#3B82F6'],
+      specs: {
+        'Top Speed': '65 km/h',
+        'Range': '100 km per charge',
+        'Motor Power': '2000W',
+        'Battery': '60V 38Ah Lithium-ion',
+        'Charging Time': '4-5 hours',
+        'Brakes': 'Disc Brakes (Front & Rear)',
+        'Tires': 'Alloy Wheels',
+      },
+      rating: 4.8,
+      reviews: 89,
+    },
+    'fh-rider': {
+      name: 'FH (Rider)',
+      category: 'E-Scooty',
+      subCategory: 'Comfort Series',
+      image: '/images/Rider - FH.jpeg',
+      price: '₹ 58,500',
+      description: 'The FH Rider is engineered for comfort on long journeys. With extra cushioning, an ergonomic design and solid range, it is the go-to choice for daily long-distance commuters.',
+      features: [
+        'Ergonomic Rider Position',
+        'Wide Comfortable Seat',
+        'Long Range Battery',
+        'Smooth Suspension',
+        'LED Lighting All Around',
+        'Digital Display',
+      ],
+      colors: ['#1D4ED8', '#000000', '#6B7280', '#065F46'],
+      specs: {
+        'Top Speed': '62 km/h',
+        'Range': '95 km per charge',
+        'Motor Power': '1800W',
+        'Battery': '60V 35Ah Lithium-ion',
+        'Charging Time': '5-6 hours',
+        'Brakes': 'Disc & Drum Combo',
+        'Tires': 'Alloy Wheels with Tubeless Tires',
+      },
+      rating: 4.7,
+      reviews: 74,
     },
     'thar-e4': {
       name: 'THAR - E4',
       category: 'E-Scooty',
       subCategory: 'Adventure Series',
       image: '/images/THAR- E4.jpeg',
-      price: '₹ 1,20,000',
+      price: '₹ 62,000',
       description: 'Inspired by rugged terrain capability, the THAR-E4 is your perfect companion for both city and adventure rides. Built tough for Indian roads.',
       features: [
         'Rugged Design',
@@ -155,14 +316,44 @@ const ProductDetail = () => {
         'Charging Time': '5-6 hours',
         'Brakes': 'Disc Brakes with CBS',
         'Tires': 'Off-road Tires',
-      }
+      },
+      rating: 4.8,
+      reviews: 43,
+    },
+    'momentum-q7': {
+      name: 'Momentum (Q7)',
+      category: 'E-Scooty',
+      subCategory: 'Performance Series',
+      image: '/images/Momentum- Q7.jpeg',
+      price: '₹ 60,000',
+      description: 'Momentum Q7 delivers exceptional performance with a focus on efficiency and reliability. The perfect choice for daily commuters who want real value for money.',
+      features: [
+        'Efficient High-Torque Motor',
+        'Long Battery Life',
+        'Digital Display',
+        'LED Indicators',
+        'Anti-Theft Lock',
+        'Comfort Suspension',
+      ],
+      colors: ['#FF6600', '#000000', '#336699', '#9932CC'],
+      specs: {
+        'Top Speed': '60 km/h',
+        'Range': '90 km per charge',
+        'Motor Power': '1800W',
+        'Battery': '60V 35Ah Lithium-ion',
+        'Charging Time': '5-6 hours',
+        'Brakes': 'Disc & Drum Combo',
+        'Tires': 'Alloy Wheels',
+      },
+      rating: 4.6,
+      reviews: 156,
     },
     'bmw': {
       name: 'BMW',
       category: 'E-Scooty',
       subCategory: 'Luxury Series',
       image: '/images/BMW.jpeg',
-      price: '₹ 1,35,000',
+      price: '₹ 58,000',
       description: 'Experience luxury electric mobility with this premium scooter. Inspired by German engineering, it offers unmatched style and performance.',
       features: [
         'Premium German Design',
@@ -181,71 +372,18 @@ const ProductDetail = () => {
         'Charging Time': '4-5 hours',
         'Brakes': 'ABS Brakes',
         'Tires': 'Performance Alloy Wheels',
-      }
-    },
-    'momentum-q7': {
-      name: 'Momentum Q7',
-      category: 'E-Scooty',
-      subCategory: 'Performance Series',
-      image: '/images/Momentum- Q7.jpeg',
-      price: '₹ 1,00,000',
-      description: 'Momentum Q7 delivers exceptional performance with a focus on efficiency and reliability. Perfect for daily commuters who want value for money.',
-      features: [
-        'Efficient Motor',
-        'Long Battery Life',
-        'Digital Display',
-        'LED Indicators',
-        'Anti-theft Lock',
-        'Comfort Suspension',
-      ],
-      colors: ['#FF6600', '#000000', '#336699', '#9932CC'],
-      specs: {
-        'Top Speed': '58 km/h',
-        'Range': '90 km per charge',
-        'Motor Power': '1600W',
-        'Battery': '48V 35Ah Lithium-ion',
-        'Charging Time': '5-6 hours',
-        'Brakes': 'Disc & Drum Combo',
-        'Tires': 'Alloy Wheels',
-      }
+      },
+      rating: 5.0,
+      reviews: 32,
     },
   };
 
-  // Get product or use default
   const product = products[slug];
-
-  // Fallback product if not found
-  const fallbackProduct = {
-    name: slug?.replace(/-/g, ' ').toUpperCase() || 'Electric Scooter',
-    category: 'E-Scooty',
-    subCategory: 'Standard Series',
-    image: '/images/placeholder.jpg',
-    price: 'Contact for Price',
-    description: 'Experience the future of mobility with our premium electric scooter. Please contact us for detailed specifications and pricing.',
-    features: [
-      'Eco-Friendly Zero Emission',
-      'Lithium-ion Battery',
-      'Fast Charging Support',
-      'LED Lighting System',
-      'USB Charging Port',
-      'Mobile Holder',
-    ],
-    colors: ['#000000', '#FF0000', '#FFFFFF'],
-    specs: {
-      'Top Speed': 'Contact Dealer',
-      'Range': 'Contact Dealer',
-      'Motor Power': 'Contact Dealer',
-      'Battery': '48V/60V/72V Options',
-      'Charging Time': '5-7 hours',
-      'Brakes': 'Disc Brakes',
-    }
-  };
-
-  const displayProduct = product || fallbackProduct;
-
   const bgColor = useColorModeValue('gray.50', 'gray.900');
   const cardBg = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('gray.600', 'gray.300');
+  const headingColor = useColorModeValue('gray.800', 'white');
+  const accentColor = '#22c55e';
 
   if (!product) {
     return (
@@ -254,13 +392,8 @@ const ProductDetail = () => {
           <Heading mb={4}>Product Not Found</Heading>
           <Text mb={8} color={textColor}>
             The product you're looking for is not available in our catalog.
-            Please check out our other amazing electric scooters.
           </Text>
-          <Button
-            colorScheme="green"
-            size="lg"
-            onClick={() => navigate('/products')}
-          >
+          <Button colorScheme="green" size="lg" onClick={() => navigate('/products')}>
             Browse All Products
           </Button>
         </Container>
@@ -268,173 +401,364 @@ const ProductDetail = () => {
     );
   }
 
+  const specIcons = {
+    'Top Speed': FaTachometerAlt,
+    'Range': FaRoad,
+    'Motor Power': FaBolt,
+    'Battery': FaBatteryFull,
+    'Charging Time': FaClock,
+    'Brakes': FaCogs,
+    'Tires': FaWeightHanging,
+  };
+
   return (
-    <Box bg={bgColor} minH="100vh" py={10}>
-      <Container maxW="1200px" px={6}>
+    <Box bg={bgColor} minH="100vh" py={8} overflowX="hidden">
+      <Container maxW="1300px" px={{ base: 4, md: 6 }}>
         {/* Back Button */}
-        <Button
-          leftIcon={<ArrowBackIcon />}
-          variant="ghost"
-          mb={8}
-          onClick={() => navigate('/products')}
-          color="gray.600"
-          _hover={{ color: 'orange.500' }}
-        >
-          Back to Products
-        </Button>
+        <SlideFade in={true} offsetY="20px">
+          <Button
+            leftIcon={<ArrowBackIcon />}
+            variant="ghost"
+            mb={8}
+            onClick={() => navigate('/')}
+            color={textColor}
+            _hover={{ color: accentColor, transform: 'translateX(-5px)' }}
+            transition="all 0.2s"
+          >
+            Back to Home
+          </Button>
+        </SlideFade>
 
         <Flex direction={{ base: 'column', lg: 'row' }} gap={12}>
-          {/* Left - Image Section */}
-          <Box flex={1}>
-            <Box
-              bg={cardBg}
-              borderRadius="2xl"
-              overflow="hidden"
-              boxShadow="xl"
-              p={8}
-            >
-              <Image
-                src={displayProduct.image}
-                alt={displayProduct.name}
-                w="100%"
-                h={{ base: "320px", md: "420px" }}
-                objectFit="contain"
-                fallbackSrc="https://via.placeholder.com/500x400?text=RMNA+E-Scooty"
-              />
-            </Box>
+          {/* Left Column - Image Gallery */}
+          <Box flex={1.2}>
+            <ScaleFade in={true} initialScale={0.95}>
+              <Box
+                position="relative"
+                bg={cardBg}
+                borderRadius="3xl"
+                overflow="hidden"
+                boxShadow="2xl"
+                p={6}
+                border="1px solid"
+                borderColor={useColorModeValue('gray.100', 'gray.700')}
+              >
+                {/* Badge */}
+                <Badge
+                  position="absolute"
+                  top={4}
+                  right={4}
+                  bg={accentColor}
+                  color="white"
+                  px={4}
+                  py={2}
+                  borderRadius="full"
+                  fontSize="sm"
+                  zIndex={1}
+                >
+                  <HStack spacing={1}>
+                    <Icon as={MdVerified} />
+                    <Text>Best Seller</Text>
+                  </HStack>
+                </Badge>
 
-            {/* Color Options */}
-            <Box mt={6}>
-              <Text fontWeight="semibold" mb={3}>Available Colors</Text>
-              <HStack spacing={4}>
-                {displayProduct.colors.map((color, index) => (
-                  <Box
-                    key={index}
-                    w="50px"
-                    h="50px"
-                    borderRadius="full"
-                    bg={color}
-                    border="3px solid white"
-                    boxShadow="md"
-                    cursor="pointer"
-                    _hover={{ transform: 'scale(1.1)' }}
-                    transition="0.2s"
-                  />
-                ))}
-              </HStack>
-            </Box>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  w="100%"
+                  h={{ base: "300px", md: "400px" }}
+                  objectFit="contain"
+                  fallbackSrc="https://via.placeholder.com/500x400?text=RMNA+E-Scooty"
+                  transition="transform 0.3s"
+                  _hover={{ transform: 'scale(1.05)' }}
+                />
+              </Box>
+
+              {/* Color Options */}
+              <Box mt={6}>
+                <Text fontWeight="600" mb={3} color={headingColor}>
+                  Available Colors
+                </Text>
+                <HStack spacing={4}>
+                  {product.colors.map((color, index) => (
+                    <Tooltip label={`Color ${index + 1}`} key={index}>
+                      <Box
+                        w="55px"
+                        h="55px"
+                        borderRadius="full"
+                        bg={color}
+                        border="3px solid"
+                        borderColor={useColorModeValue('white', 'gray.600')}
+                        boxShadow="md"
+                        cursor="pointer"
+                        transition="all 0.2s"
+                        _hover={{ transform: 'scale(1.15)', boxShadow: 'lg' }}
+                      />
+                    </Tooltip>
+                  ))}
+                </HStack>
+              </Box>
+            </ScaleFade>
           </Box>
 
-          {/* Right - Details Section */}
-          <Box flex={1}>
-            <HStack spacing={3} mb={3}>
-              <Badge colorScheme="orange" fontSize="sm" px={3} py={1} borderRadius="full">
-                {displayProduct.category}
-              </Badge>
-              <Badge colorScheme="green" fontSize="sm" px={3} py={1} borderRadius="full">
-                {displayProduct.subCategory}
-              </Badge>
-            </HStack>
+          {/* Right Column - Product Details */}
+          <Box flex={1.8}>
+            <SlideFade in={true} offsetY="30px" delay={0.1}>
+              {/* Header Section */}
+              <VStack align="flex-start" spacing={3} mb={6}>
+                <HStack spacing={3}>
+                  <Badge
+                    bg={`${accentColor}15`}
+                    color={accentColor}
+                    fontSize="sm"
+                    px={4}
+                    py={2}
+                    borderRadius="full"
+                    fontWeight="600"
+                  >
+                    {product.category}
+                  </Badge>
+                  <Badge
+                    bg="orange.100"
+                    color="orange.600"
+                    fontSize="sm"
+                    px={4}
+                    py={2}
+                    borderRadius="full"
+                  >
+                    {product.subCategory}
+                  </Badge>
+                </HStack>
 
-            <Heading size="2xl" mb={4}>{displayProduct.name}</Heading>
-            
-            {displayProduct.price !== 'Contact for Price' && (
-              <Text fontSize="3xl" fontWeight="bold" color="green.600" mb={4}>
-                {displayProduct.price}
-              </Text>
-            )}
+                <Heading
+                  fontSize={{ base: "3xl", md: "4xl" }}
+                  fontWeight="800"
+                  color={headingColor}
+                  lineHeight="1.2"
+                >
+                  {product.name}
+                </Heading>
 
-            <Text fontSize="lg" color={textColor} lineHeight="1.8" mb={8}>
-              {displayProduct.description}
-            </Text>
-
-            <Divider my={8} />
-
-            {/* Key Features */}
-            <Box mb={10}>
-              <Heading size="md" mb={5} display="flex" alignItems="center" gap={2}>
-                <FaBolt style={{ color: '#22c55e' }} />
-                Key Features
-              </Heading>
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                {displayProduct.features.map((feature, index) => (
-                  <HStack key={index} spacing={3}>
-                    <Box w="8px" h="8px" bg="green.500" borderRadius="full" />
-                    <Text fontSize="md">{feature}</Text>
+                {/* Rating */}
+                <HStack spacing={2}>
+                  <HStack spacing={1}>
+                    {[...Array(5)].map((_, i) => (
+                      <Icon
+                        key={i}
+                        as={StarIcon}
+                        color={i < Math.floor(product.rating) ? '#fbbf24' : 'gray.300'}
+                        boxSize={4}
+                      />
+                    ))}
                   </HStack>
-                ))}
-              </SimpleGrid>
-            </Box>
+                  <Text fontSize="sm" color={textColor} fontWeight="500">
+                    {product.rating} ⭐ ({product.reviews}+ reviews)
+                  </Text>
+                </HStack>
 
-            {/* Specifications */}
-            <Box mb={10}>
-              <Heading size="md" mb={5} display="flex" alignItems="center" gap={2}>
-                <FaTachometerAlt style={{ color: '#f97316' }} />
-                Technical Specifications
-              </Heading>
-              <VStack align="start" spacing={3} w="full">
-                {Object.entries(displayProduct.specs).map(([key, value]) => (
-                  <Flex key={key} w="full" justify="space-between" py={2} borderBottom="1px solid" borderColor="gray.200">
-                    <Text fontWeight="medium" color="gray.500">{key}</Text>
-                    <Text fontWeight="semibold">{value}</Text>
-                  </Flex>
-                ))}
+                <Text fontSize="3xl" fontWeight="bold" color={accentColor} mt={2}>
+                  {product.price}
+                </Text>
+
+                <Text fontSize="md" color={textColor} lineHeight="1.8" mt={2}>
+                  {product.description}
+                </Text>
               </VStack>
-            </Box>
 
-            {/* Battery & Charging Info */}
-            <Box mb={10} p={4} bg="orange.50" borderRadius="xl" border="1px solid" borderColor="orange.200">
-              <Heading size="sm" mb={3} display="flex" alignItems="center" gap={2}>
-                <FaBatteryFull style={{ color: '#f97316' }} />
-                Battery Options Available
-              </Heading>
-              <Text fontSize="sm" color="gray.700">
-                Lithium-ion Battery: 48V / 60V / 72V options available<br />
-                Fast charging support • 2-3 years battery life • Lightweight design
-              </Text>
-            </Box>
+              {/* Tabs Section */}
+              <Tabs variant="soft-rounded" colorScheme="green" mt={8}>
+                <TabList bg={useColorModeValue('gray.100', 'gray.700')} p={1} borderRadius="xl">
+                  <Tab _selected={{ bg: accentColor, color: 'white' }}>Key Features</Tab>
+                  <Tab _selected={{ bg: accentColor, color: 'white' }}>Specifications</Tab>
+                  <Tab _selected={{ bg: accentColor, color: 'white' }}>Warranty</Tab>
+                </TabList>
 
-            {/* Action Buttons */}
-            <Flex gap={4} direction={{ base: 'column', sm: 'row' }}>
-              <Button
-                leftIcon={<FaWhatsapp />}
-                size="lg"
-                bg="#25D366"
-                color="white"
-                flex={1}
-                py={7}
-                fontSize="17px"
-                _hover={{ bg: '#1eb355', transform: 'scale(1.02)' }}
-                onClick={() => window.open(`https://wa.me/919695600185?text=I'm interested in ${displayProduct.name} from RMNA E-Mobility`, '_blank')}
-              >
-                WhatsApp Inquiry
-              </Button>
+                <TabPanels mt={6}>
+                  {/* Features Panel */}
+                  <TabPanel px={0}>
+                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                      {product.features.map((feature, index) => (
+                        <HStack key={index} spacing={3}>
+                          <Icon as={CheckIcon} color={accentColor} boxSize={4} />
+                          <Text fontSize="md" color={textColor}>{feature}</Text>
+                        </HStack>
+                      ))}
+                    </SimpleGrid>
+                  </TabPanel>
 
-              <Button
-                leftIcon={<PhoneIcon />}
-                size="lg"
-                variant="outline"
-                borderColor="green.500"
-                color="green.600"
-                flex={1}
-                py={7}
-                fontSize="17px"
-                _hover={{ bg: 'green.50', transform: 'scale(1.02)' }}
-                onClick={() => window.location.href = 'tel:+919695600185'}
-              >
-                Call Now
-              </Button>
-            </Flex>
+                  {/* Specifications Panel */}
+                  <TabPanel px={0}>
+                    <VStack spacing={4} align="stretch">
+                      {Object.entries(product.specs).map(([key, value]) => {
+                        const IconComponent = specIcons[key] || FaCogs;
+                        return (
+                          <Flex
+                            key={key}
+                            justify="space-between"
+                            align="center"
+                            py={3}
+                            borderBottom="1px solid"
+                            borderColor={useColorModeValue('gray.100', 'gray.700')}
+                          >
+                            <HStack spacing={3}>
+                              <Icon as={IconComponent} color={accentColor} boxSize={5} />
+                              <Text fontWeight="600" color={headingColor}>{key}</Text>
+                            </HStack>
+                            <Text fontWeight="500" color={textColor}>{value}</Text>
+                          </Flex>
+                        );
+                      })}
+                    </VStack>
+                  </TabPanel>
 
-            {/* Services Offered Badges */}
-            <Flex gap={2} mt={6} flexWrap="wrap">
-              <Badge colorScheme="green" variant="subtle" px={3} py={1}>Retail Supply</Badge>
-              <Badge colorScheme="orange" variant="subtle" px={3} py={1}>Wholesale Supply</Badge>
-              <Badge colorScheme="purple" variant="subtle" px={3} py={1}>Dealership Support</Badge>
-              <Badge colorScheme="blue" variant="subtle" px={3} py={1}>After-Sales Service</Badge>
-            </Flex>
+                  {/* Warranty Panel */}
+                  <TabPanel px={0}>
+                    <VStack spacing={4} align="stretch">
+                      <Box p={4} bg={`${accentColor}10`} borderRadius="xl">
+                        <HStack spacing={3} mb={3}>
+                          <Icon as={FaShieldAlt} color={accentColor} boxSize={6} />
+                          <Heading size="sm">Comprehensive Warranty</Heading>
+                        </HStack>
+                        <Text fontSize="sm" color={textColor}>
+                          • 3 Years warranty on Electric Motor<br />
+                          • 2 Years warranty on Battery<br />
+                          • 1 Year warranty on Charger<br />
+                          • Lifetime support on Frame
+                        </Text>
+                      </Box>
+                      <Box p={4} bg={`${accentColor}10`} borderRadius="xl">
+                        <HStack spacing={3} mb={3}>
+                          <Icon as={FaThumbsUp} color={accentColor} boxSize={6} />
+                          <Heading size="sm">Free Services</Heading>
+                        </HStack>
+                        <Text fontSize="sm" color={textColor}>
+                          • 3 Free Services within first year<br />
+                          • Free Home Pickup & Drop<br />
+                          • 24/7 Roadside Assistance
+                        </Text>
+                      </Box>
+                    </VStack>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+
+              {/* Action Buttons */}
+              <Flex gap={4} direction={{ base: 'column', sm: 'row' }} mt={10}>
+                <Button
+                  leftIcon={<FaWhatsapp />}
+                  size="lg"
+                  bg="#25D366"
+                  color="white"
+                  flex={2}
+                  py={7}
+                  fontSize="16px"
+                  fontWeight="600"
+                  _hover={{ bg: '#1eb355', transform: 'translateY(-2px)' }}
+                  transition="all 0.2s"
+                  onClick={() => window.open(`https://wa.me/919695600185?text=I'm interested in ${product.name} from RMNA E-Mobility`, '_blank')}
+                >
+                  WhatsApp Inquiry
+                </Button>
+
+                <Button
+                  leftIcon={<PhoneIcon />}
+                  size="lg"
+                  variant="outline"
+                  borderColor={accentColor}
+                  color={accentColor}
+                  flex={1}
+                  py={7}
+                  fontSize="16px"
+                  fontWeight="600"
+                  _hover={{ bg: `${accentColor}10`, transform: 'translateY(-2px)' }}
+                  transition="all 0.2s"
+                  onClick={() => window.location.href = 'tel:+919695600185'}
+                >
+                  Call Now
+                </Button>
+              </Flex>
+
+              {/* Service Badges */}
+              <Wrap spacing={3} mt={6}>
+                <Tooltip label="Free Home Delivery">
+                  <Badge bg={`${accentColor}15`} color={accentColor} px={4} py={2} borderRadius="full">
+                    <HStack spacing={2}>
+                      <Icon as={FaTruck} />
+                      <Text>Free Delivery</Text>
+                    </HStack>
+                  </Badge>
+                </Tooltip>
+                <Tooltip label="EMI Available">
+                  <Badge bg={`${accentColor}15`} color={accentColor} px={4} py={2} borderRadius="full">
+                    <HStack spacing={2}>
+                      <Icon as={FaGem} />
+                      <Text>EMI Starting @ ₹1,999</Text>
+                    </HStack>
+                  </Badge>
+                </Tooltip>
+                <Tooltip label="Test Ride Available">
+                  <Badge bg={`${accentColor}15`} color={accentColor} px={4} py={2} borderRadius="full">
+                    <HStack spacing={2}>
+                      <Icon as={FaHeadset} />
+                      <Text>Free Test Ride</Text>
+                    </HStack>
+                  </Badge>
+                </Tooltip>
+              </Wrap>
+
+              {/* Pros Section */}
+              <Box mt={8} p={5} bg={cardBg} borderRadius="2xl" border="1px solid" borderColor={useColorModeValue('gray.100', 'gray.700')}>
+                <Heading size="sm" mb={4} display="flex" alignItems="center" gap={2}>
+                  <Icon as={FaThumbsUp} color={accentColor} />
+                  Why Choose This Model?
+                </Heading>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3}>
+                  <HStack spacing={2}>
+                    <Icon as={FaCheckCircle} color={accentColor} boxSize={4} />
+                    <Text fontSize="sm" color={textColor}>Low Maintenance Cost</Text>
+                  </HStack>
+                  <HStack spacing={2}>
+                    <Icon as={FaCheckCircle} color={accentColor} boxSize={4} />
+                    <Text fontSize="sm" color={textColor}>Eco-Friendly Vehicle</Text>
+                  </HStack>
+                  <HStack spacing={2}>
+                    <Icon as={FaCheckCircle} color={accentColor} boxSize={4} />
+                    <Text fontSize="sm" color={textColor}>5 Years Battery Life</Text>
+                  </HStack>
+                  <HStack spacing={2}>
+                    <Icon as={FaCheckCircle} color={accentColor} boxSize={4} />
+                    <Text fontSize="sm" color={textColor}>Government Subsidy Available</Text>
+                  </HStack>
+                </SimpleGrid>
+              </Box>
+            </SlideFade>
           </Box>
         </Flex>
+
+        {/* Floating Contact Button */}
+        {/* <Box
+          position="fixed"
+          bottom="30px"
+          right="30px"
+          zIndex={999}
+          cursor="pointer"
+          onClick={() => window.open(`https://wa.me/919695600185?text=I'm interested in ${product.name}`, '_blank')}
+          animation={`${float} 2s ease-in-out infinite`}
+        >
+          <Flex
+            w="60px"
+            h="60px"
+            bg="#25D366"
+            borderRadius="full"
+            align="center"
+            justify="center"
+            boxShadow="xl"
+            transition="all 0.3s"
+            _hover={{ transform: 'scale(1.1)', boxShadow: '2xl' }}
+          >
+            <Icon as={FaWhatsapp} boxSize={8} color="white" />
+          </Flex>
+        </Box> */}
       </Container>
     </Box>
   );

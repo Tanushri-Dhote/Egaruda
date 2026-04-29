@@ -58,8 +58,8 @@ const Gallery = () => {
     const cardBg = useColorModeValue('white', 'gray.800');
     const borderColor = useColorModeValue('gray.200', 'gray.700');
     const accentColor = useColorModeValue('green.500', 'green.400');
-    const gradientBg = 'linear(135deg, #48bb78 0%, #ecc94b 50%, #ed8936 100%)';
-    const gradientBgHover = 'linear(135deg, #38a169 0%, #d69e2e 50%, #dd6b20 100%)';
+    const solidGreen = useColorModeValue('#16a34a', '#22c55e');
+    const solidGreenHover = useColorModeValue('#15803d', '#16a34a');
 
     // Updated Gallery with EXACT image paths from your screenshot (public/images/ folder)
     const galleryImages = [
@@ -365,7 +365,7 @@ const Gallery = () => {
             <Box
                 position="relative"
                 h={{ base: '400px', md: '500px' }}
-                bgGradient="linear(to-r, green.600, yellow.600, orange.600)"
+                // bg="#80a68eff"
                 overflow="hidden"
             >
                 <Box
@@ -374,10 +374,10 @@ const Gallery = () => {
                     left={0}
                     right={0}
                     bottom={0}
-                    bgImage="images/rmna-hero.webp"
+                    bgImage="images/Big Daddy- CS3.jpeg"
                     bgSize="cover"
                     bgPosition="center"
-                    opacity={0.3}
+                    opacity={0.8}
                     transform="scale(1.05)"
                 />
                 <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="blackAlpha.600" />
@@ -388,7 +388,11 @@ const Gallery = () => {
                             <Badge bg="whiteAlpha.300" color="white" fontSize="md" px={4} py={2} borderRadius="full" mb={4}>
                                 <HStack spacing={2}>
                                     <Icon as={FaCamera} />
-                                    <Text>RMNA E-Mobility Catalogue</Text>
+                                    <HStack spacing={0} fontWeight="bold">
+                                      <Text as="span" color="#f97316">RM</Text>
+                                      <Text as="span" color="#22c55e">NA</Text>
+                                      <Text as="span" ml={1}>E-Mobility Catalogue</Text>
+                                    </HStack>
                                 </HStack>
                             </Badge>
                         </SlideFade>
@@ -396,8 +400,10 @@ const Gallery = () => {
                         <SlideFade in={true} offsetY="30px" delay={0.1}>
                             <Heading as="h1" fontSize={{ base: '36px', md: '56px', lg: '64px' }} fontWeight="extrabold" color="white" letterSpacing="tight" mb={4}>
                                 Explore Our{' '}
-                                <Box as="span" bgGradient={gradientBg} bgClip="text" display="inline-block">
-                                    RMNA Products
+                                <Box as="span" display="inline-block">
+                                    <Text as="span" color="#f97316">RM</Text>
+                                    <Text as="span" color="#22c55e">NA</Text>
+                                    <Text as="span" color="#86efac" ml={2}>Products</Text>
                                 </Box>
                             </Heading>
                         </SlideFade>
@@ -446,7 +452,7 @@ const Gallery = () => {
                         borderRadius="full"
                         bg={cardBg}
                         boxShadow="lg"
-                        _hover={{ bgGradient: gradientBg, color: 'white' }}
+                        _hover={{ bg: solidGreen, color: 'white' }}
                         onClick={scrollLeft}
                         size="sm"
                         aria-label="Scroll left"
@@ -470,13 +476,13 @@ const Gallery = () => {
                                     size={{ base: 'sm', md: 'md' }}
                                     borderRadius="full"
                                     variant={selectedCategory === category.id ? 'solid' : 'outline'}
-                                    bgGradient={selectedCategory === category.id ? gradientBg : 'none'}
+                                    bg={selectedCategory === category.id ? solidGreen : 'none'}
                                     color={selectedCategory === category.id ? 'white' : textColor}
                                     borderColor={accentColor}
                                     onClick={() => setSelectedCategory(category.id)}
                                     _hover={{
                                         transform: 'translateY(-2px)',
-                                        bgGradient: selectedCategory === category.id ? gradientBgHover : gradientBg,
+                                        bg: solidGreenHover,
                                         color: 'white',
                                     }}
                                     transition="all 0.3s ease"
@@ -500,7 +506,7 @@ const Gallery = () => {
                         borderRadius="full"
                         bg={cardBg}
                         boxShadow="lg"
-                        _hover={{ bgGradient: gradientBg, color: 'white' }}
+                        _hover={{ bg: solidGreen, color: 'white' }}
                         onClick={scrollRight}
                         size="sm"
                         aria-label="Scroll right"
@@ -551,12 +557,12 @@ const Gallery = () => {
                                                 bottom={0}
                                                 left={0}
                                                 right={0}
-                                                bgGradient="linear(to-t, blackAlpha.800, transparent)"
+                                                bg="linear-gradient(to top, rgba(0,0,0,0.8), transparent)"
                                                 p={6}
                                                 transform={hoveredId === image.id ? 'translateY(0)' : 'translateY(20px)'}
                                                 transition="transform 0.3s ease"
                                             >
-                                                <Badge bgGradient={gradientBg} color="white" mb={2}>
+                                                <Badge bg={solidGreen} color="white" mb={2}>
                                                     {image.displayName}
                                                 </Badge>
                                                 <Heading fontSize="20px" color="white" mb={2}>
@@ -577,7 +583,7 @@ const Gallery = () => {
                         <Icon as={FaCamera} boxSize={16} color={textColor} opacity={0.3} />
                         <Heading fontSize="24px" color={textColor} mt={4}>No products found</Heading>
                         <Text color={textColor} mt={2}>Try adjusting your search or filter</Text>
-                        <Button mt={6} onClick={() => { setSelectedCategory('all'); setSearchTerm(''); }} bgGradient={gradientBg} color="white" _hover={{ transform: 'scale(1.05)' }}>
+                        <Button mt={6} onClick={() => { setSelectedCategory('all'); setSearchTerm(''); }} bg={solidGreen} color="white" _hover={{ bg: solidGreenHover, transform: 'scale(1.05)' }}>
                             Clear Filters
                         </Button>
                     </Flex>
@@ -640,7 +646,7 @@ const Gallery = () => {
                                                 position="absolute"
                                                 top={4}
                                                 left={4}
-                                                bgGradient={gradientBg}
+                                                bg={solidGreen}
                                                 color="white"
                                                 px={3}
                                                 py={1}
@@ -687,7 +693,7 @@ const Gallery = () => {
                                         objectFit="cover"
                                     />
                                     <Box p={6}>
-                                        <Badge bgGradient={gradientBg} color="white" mb={3}>
+                                        <Badge bg={solidGreen} color="white" mb={3}>
                                             {selectedImage.displayName}
                                         </Badge>
                                         <Heading as="h3" fontSize="24px" fontWeight="bold" color={headingColor} mb={3}>

@@ -353,7 +353,7 @@ const LegalConnectedSteppers = () => {
                                             By creating an account or using{' '}
                                             <Text
                                                 as="span"
-                                                bgGradient="linear(to-r, green.400, purple.500)"
+                                                bg="#16a34a"
                                                 bgClip="text"
                                                 fontWeight="bold"
                                             >
@@ -372,7 +372,7 @@ const LegalConnectedSteppers = () => {
                                             You must be at least 18 years old to use{' '}
                                             <Text
                                                 as="span"
-                                                bgGradient="linear(to-r, green.400, purple.500)"
+                                                bg="#16a34a"
                                                 bgClip="text"
                                                 fontWeight="bold"
                                             >
@@ -391,7 +391,7 @@ const LegalConnectedSteppers = () => {
                                             You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.{' '}
                                             <Text
                                                 as="span"
-                                                bgGradient="linear(to-r, green.400, purple.500)"
+                                                bg="#16a34a"
                                                 bgClip="text"
                                                 fontWeight="bold"
                                             >
@@ -459,7 +459,7 @@ const LegalConnectedSteppers = () => {
                                             At{' '}
                                             <Text
                                                 as="span"
-                                                bgGradient="linear(to-r, green.400, purple.500)"
+                                                bg="#16a34a"
                                                 bgClip="text"
                                                 fontWeight="bold"
                                             >
@@ -478,7 +478,7 @@ const LegalConnectedSteppers = () => {
                                             By using{' '}
                                             <Text
                                                 as="span"
-                                                bgGradient="linear(to-r, green.400, purple.500)"
+                                                bg="#16a34a"
                                                 bgClip="text"
                                                 fontWeight="bold"
                                             >

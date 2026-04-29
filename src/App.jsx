@@ -1,4 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
+  return null;
+}
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -22,6 +31,7 @@ import { BiBorderRadius } from "react-icons/bi";
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
 
       <Routes>

@@ -61,7 +61,7 @@ const AboutSection = () => {
   const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
 
-  const bgGradient = useColorModeValue('linear(to-b, #f7fafc, white)', 'linear(to-b, gray.900, #1a1a1a)');
+  const bgColor = useColorModeValue('#f7fafc', '#1a1a2e');
   const cardBg = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('gray.600', 'gray.400');
   const headingColor = useColorModeValue('gray.800', 'white');
@@ -69,7 +69,7 @@ const AboutSection = () => {
   const accentOrange = useColorModeValue('orange.500', 'orange.300');
   const borderColor = useColorModeValue('gray.100', 'gray.700');
   const subtleBg = useColorModeValue('gray.50', 'gray.700/50');
-  const gradientBadge = 'linear(to-r, green.400, yellow.400, orange.400)';
+  const gradientBadge = '#16a34a';
 
 
   const stats = [
@@ -87,14 +87,14 @@ const AboutSection = () => {
   ];
 
   const models = [
-    { name: 'Double Light', image: '/images/Double Light.jpeg', tag: 'Premium', icon: FaStar, color: 'yellow' },
-    { name: 'Legendre LD', image: '/images/Legender- LD.jpeg', tag: 'Performance', icon: FaTachometerAlt, color: 'orange' },
-    { name: 'Mini Activa (CS)', image: '/images/Mini Activa (CS).jpeg', tag: 'Compact', icon: FaBolt, color: 'blue' },
-    { name: 'Big Daddy - CS3', image: '/images/Big Daddy- CS3.jpeg', tag: 'Power', icon: FaShieldAlt, color: 'green' },
-    { name: 'THAR - E4', image: '/images/THAR- E4.jpeg', tag: 'Adventure', icon: FaRoad, color: 'red' },
-    { name: 'Momentum Q7', image: '/images/Momentum- Q7.jpeg', tag: 'Smart', icon: FaPlug, color: 'teal' },
-    { name: 'Luxury - CS2', image: '/images/Luxury- CS2.jpeg', tag: 'Luxury', icon: FaCrown, color: 'purple' },
-    { name: 'Rider - FH', image: '/images/Rider - FH.jpeg', tag: 'Comfort', icon: FaHandsHelping, color: 'pink' },
+    { name: 'Double Light', image: '/images/Double Light.jpeg', tag: 'Premium', icon: FaStar, color: 'yellow', slug: 'double-light' },
+    { name: 'Legendre LD', image: '/images/Legender- LD.jpeg', tag: 'Performance', icon: FaTachometerAlt, color: 'orange', slug: 'legendre-ld' },
+    { name: 'Mini Activa (CS)', image: '/images/Mini Activa (CS).jpeg', tag: 'Compact', icon: FaBolt, color: 'blue', slug: 'mini-activa-cs' },
+    { name: 'Big Daddy - CS3', image: '/images/Big Daddy- CS3.jpeg', tag: 'Power', icon: FaShieldAlt, color: 'green', slug: 'big-daddy-cs3' },
+    { name: 'THAR - E4', image: '/images/THAR- E4.jpeg', tag: 'Adventure', icon: FaRoad, color: 'red', slug: 'thar-e4' },
+    { name: 'Momentum Q7', image: '/images/Momentum- Q7.jpeg', tag: 'Smart', icon: FaPlug, color: 'teal', slug: 'momentum-q7' },
+    { name: 'Luxury - CS2', image: '/images/Luxury- CS2.jpeg', tag: 'Luxury', icon: FaCrown, color: 'purple', slug: 'cs2' },
+    { name: 'Rider - FH', image: '/images/Rider - FH.jpeg', tag: 'Comfort', icon: FaHandsHelping, color: 'pink', slug: 'fh-rider' },
   ];
 
   const containerVariants = {
@@ -113,7 +113,7 @@ const AboutSection = () => {
   };
 
   return (
-    <Box bg={bgGradient} minH="100vh" position="relative" overflow="hidden">
+    <Box bg={bgColor} minH="100vh" position="relative" overflow="hidden">
       {/* Background decoration */}
       <Box
         position="absolute"
@@ -180,7 +180,7 @@ const AboutSection = () => {
               <VStack spacing={6} align="flex-start">
                 <MotionBox variants={itemVariants}>
                   <Badge
-                    bgGradient={gradientBadge}
+                    bg={gradientBadge}
                     color="white"
                     px={4}
                     py={2}
@@ -188,10 +188,11 @@ const AboutSection = () => {
                     fontSize="sm"
                     fontWeight="semibold"
                   >
-                    <HStack spacing={2}>
-                      <Icon as={FaRocket} />
-                      <Text>RMNA E-Mobility Services</Text>
-                    </HStack>
+                    <Box as="span" display="inline-flex" fontWeight="bold">
+              <Text as="span" color="#f97316">RM</Text>
+              <Text as="span" color="#22c55e">NA</Text>
+              <Text as="span" color={useColorModeValue('black', 'white')} ml={2}>Electric Mobility</Text>
+            </Box>
                   </Badge>
                 </MotionBox>
 
@@ -213,8 +214,7 @@ const AboutSection = () => {
                     as="h2"
                     fontSize={{ base: '2xl', md: '3xl' }}
                     fontWeight="bold"
-                    bgGradient="linear(to-r, green.500, green.700, orange.500, orange.400)"
-                    bgClip="text"
+                    color="green.600"
                     mb={4}
                   >
                     Redefining Urban Commuting
@@ -223,7 +223,11 @@ const AboutSection = () => {
 
                 <MotionBox variants={itemVariants}>
                   <Text fontSize={{ base: 'lg', md: 'xl' }} color={textColor} lineHeight="tall">
-                    At <Text as="span" fontWeight="bold" color="green.500">RMNA E-Mobility Services</Text>, we're driven by a single mission — to transform urban transportation with smart, sustainable, and stylish electric vehicles. We believe the future of mobility is green, connected, and intelligent.
+                    At <Box as="span" fontWeight="bold">
+                      <Text as="span" color="#f97316">RM</Text>
+                      <Text as="span" color="#22c55e">NA</Text>
+                      <Text as="span" color={useColorModeValue('black', 'white')}> E-Mobility Services</Text>
+                    </Box>, we're driven by a single mission — to transform urban transportation with smart, sustainable, and stylish electric vehicles. We believe the future of mobility is green, connected, and intelligent.
                   </Text>
                 </MotionBox>
 
@@ -237,7 +241,7 @@ const AboutSection = () => {
                   <HStack spacing={4}>
                     <Button
                       size="lg"
-                      bgGradient="linear(to-r, green.500, green.600)"
+                      bg="green.600"
                       color="white"
                       px={8}
                       _hover={{
@@ -302,7 +306,7 @@ const AboutSection = () => {
                     left={0}
                     right={0}
                     height="4px"
-                    bgGradient={gradientBadge}
+                    bg={gradientBadge}
                   />
                   <Flex
                     w="60px"
@@ -428,7 +432,11 @@ const AboutSection = () => {
                 </HStack>
                 <HStack>
                   <Icon as={FaBuilding} color="green.500" />
-                  <Text fontSize="sm" color={textColor}>Founder of RMNA E-Mobility</Text>
+                  <HStack spacing={0} fontWeight="semibold" fontSize="sm">
+                    <Text as="span" color="#f97316">RM</Text>
+                    <Text as="span" color="#22c55e">NA</Text>
+                    <Text as="span" color={textColor} ml={1}>E-Mobility</Text>
+                  </HStack>
                 </HStack>
               </VStack>
               <Box bg={subtleBg} p={4} borderRadius="xl" position="relative">
@@ -513,6 +521,8 @@ const AboutSection = () => {
                 borderColor={borderColor}
                 _hover={{ transform: 'translateY(-4px)', boxShadow: 'xl' }}
                 transition="all 0.2s"
+                cursor="pointer"
+                onClick={() => navigate(`/products/${model.slug}`)}
               >
                 <Box h="180px" overflow="hidden">
                   <Image
@@ -614,7 +624,7 @@ const AboutSection = () => {
           variants={fadeInUp}
         >
           <Box
-            bgGradient="linear(to-r, #22c55e, #15803d)"
+            bg="#16a34a"
             borderRadius="3xl"
             p={{ base: 8, md: 12 }}
             textAlign="center"
