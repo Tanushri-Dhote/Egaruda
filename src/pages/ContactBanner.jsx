@@ -78,7 +78,7 @@ const ContactBanner = () => {
             color="#ffdd57"
             mt={2}
           >
-            Call us today at <span style={{ color: "#ffffff", fontWeight: "bold" }}>+91 96956 00185 / +91 91259 48111</span>
+            Call: <span style={{ color: "#ffffff", fontWeight: "bold" }}>+91 96956 00185</span> | WhatsApp: <span style={{ color: "#ffffff", fontWeight: "bold" }}>+91 91259 48111</span>
           </Text>
         </VStack>
       </Flex>

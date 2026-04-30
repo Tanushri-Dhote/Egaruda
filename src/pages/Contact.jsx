@@ -184,7 +184,7 @@ const Contact = () => {
         />
 
         <Container maxW="1200px" position="relative" zIndex={2}>
-          <VStack spacing={8} textAlign="center">
+          <VStack spacing={{ base: 5, md: 8 }} textAlign="center">
             <ScaleFade in={true} initialScale={0.9}>
               <Badge
                 bg="rgba(255,255,255,0.2)"
@@ -207,7 +207,7 @@ const Contact = () => {
 
             <SlideFade in={true} offsetY="30px">
               <Heading
-                fontSize={{ base: "4xl", sm: "5xl", lg: "6xl" }}
+                fontSize={{ base: "2xl", sm: "4xl", lg: "6xl" }}
                 fontWeight="800"
                 letterSpacing="-0.02em"
                 lineHeight="1.2"
@@ -252,7 +252,7 @@ const Contact = () => {
             </Fade>
 
             {/* Floating Stats - Lightened for banner visibility */}
-            <HStack spacing={8} pt={4} wrap="wrap" justify="center">
+            <HStack spacing={{ base: 4, md: 8 }} pt={4} wrap="wrap" justify="center">
               {[
                 { label: "Happy Customers", value: "10K+", icon: FaRegSmile },
                 { label: "Cities Served", value: "50+", icon: FaCity },
@@ -284,7 +284,7 @@ const Contact = () => {
             {
               icon: FaPhone,
               title: "Call Support",
-              details: ["+91 9695600185", "+91 9125948111"],
+              details: ["+91 96956 00185"],
               sub: "Mon-Sat, 10AM-6PM",
               gradient: '#22c55e',
               delay: 0.1
@@ -292,7 +292,7 @@ const Contact = () => {
             {
               icon: FaWhatsapp,
               title: "WhatsApp Chat",
-              details: ["+91 9695600185"],
+              details: ["+91 9125948111"],
               sub: "Quick response within minutes",
               gradient: '#25D366',
               delay: 0.2
@@ -674,7 +674,7 @@ const Contact = () => {
                     Call Now
                   </Button>
                 </Link>
-                <Link href="https://wa.me/919695600185" isExternal>
+                <Link href="https://wa.me/919125948111" isExternal>
                   <Button size="md" bg="#25D366" color="white" _hover={{ bg: "#128C7E" }}>
                     <Icon as={FaWhatsapp} mr={2} />
                     WhatsApp

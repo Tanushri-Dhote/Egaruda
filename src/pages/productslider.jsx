@@ -170,7 +170,7 @@ const ProductSlider = () => {
           </Badge>
 
           <Heading
-            fontSize={{ base: "30px", md: "46px" }}
+            fontSize={{ base: "24px", md: "46px" }}
             fontWeight="800"
             color={headingColor}
             lineHeight="1.15"
@@ -242,8 +242,8 @@ const ProductSlider = () => {
               return (
                 <Box
                   key={item.slug}
-                  flex={{ base: "1 1 calc(50% - 12px)", lg: "1" }}
-                  minW={{ base: "140px", sm: "180px", lg: "0" }}
+                  flex={{ base: "1 1 100%", lg: "1" }}
+                  minW={{ base: "100%", lg: "0" }}
                   maxW={{ lg: "320px" }}
                   bg={cardBg}
                   borderRadius="20px"
@@ -259,21 +259,21 @@ const ProductSlider = () => {
                   onClick={() => navigate(`/products/${item.slug}`)}
                 >
                   {/* ── Top Row: Badge + Stars ── */}
-                  <Flex justify="space-between" align="center" px={4} pt={4} pb={1}>
+                  <Flex justify="space-between" align="center" px={{ base: 2, md: 4 }} pt={4} pb={1} wrap="wrap" gap={2}>
                     <Badge
                       bg={useColorModeValue("#dcfce7", "#052e16")}
                       color={useColorModeValue("#16a34a", "#4ade80")}
-                      px={3}
+                      px={{ base: 2, md: 3 }}
                       py={1}
                       borderRadius="full"
-                      fontSize="xs"
+                      fontSize={{ base: "2xs", md: "xs" }}
                       fontWeight="700"
                     >
                       {item.badge}
                     </Badge>
                     <HStack spacing={1}>
                       <Icon as={FaStar} color="#f59e0b" boxSize={3} />
-                      <Text fontSize="xs" fontWeight="600" color={subTextColor}>
+                      <Text fontSize={{ base: "2xs", md: "xs" }} fontWeight="600" color={subTextColor}>
                         4.9
                       </Text>
                     </HStack>

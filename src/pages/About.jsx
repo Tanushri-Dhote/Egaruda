@@ -75,8 +75,8 @@ const AboutSection = () => {
   const stats = [
     { label: 'Happy Customers', value: '10,000+', icon: FaHeart, color: 'red' },
     { label: 'Models Available', value: '7+', icon: FaCrown, color: 'yellow' },
-    { label: 'Service Centers', value: '25+', icon: FaHeadset, color: 'blue' },
-    { label: 'Years Experience', value: '10+', icon: FaCalendarAlt, color: 'green' },
+    { label: 'Service Centers', value: '10+', icon: FaHeadset, color: 'blue' },
+    { label: 'Years Experience', value: '8+', icon: FaCalendarAlt, color: 'green' },
   ];
 
   const coreValues = [
@@ -140,7 +140,7 @@ const AboutSection = () => {
         zIndex="0"
       />
 
-      <Container maxW="1200px" py={{ base: 12, md: 20 }} px={{ base: 4, md: 6 }} position="relative" zIndex="1">
+      <Container maxW="1200px" py={{ base: 12, md: 20 }} px={{ base: 6, md: 8 }} position="relative" zIndex="1">
 
         {/* ===== OUR STORY HERO SECTION ===== */}
         <MotionBox
@@ -160,13 +160,13 @@ const AboutSection = () => {
             border="1px solid"
             borderColor={borderColor}
           >
-            <Box flex="1" w="100%" minH={{ base: '300px', md: '450px' }} position="relative" overflow="hidden">
+            <Box flex="1" w="100%" minH={{ base: '380px', md: '450px' }} position="relative" overflow="hidden">
               <Image
-                src="/images/ashish-rajdev.webp"
+                src="/images/owner-image.png"
                 alt="RMNA Journey"
                 w="100%"
                 h="100%"
-                objectFit="cover"
+                objectFit="contain"
                 transition="transform 0.5s ease"
               />
               <Box
@@ -176,30 +176,33 @@ const AboutSection = () => {
               />
             </Box>
 
-            <Box flex="1" p={{ base: 8, md: 10 }}>
-              <VStack spacing={6} align="flex-start">
+            <Box flex="1" p={{ base: 6, md: 10 }} w="100%">
+              <VStack spacing={6} align="flex-start" w="100%">
                 <MotionBox variants={itemVariants}>
                   <Badge
                     bg={gradientBadge}
                     color="white"
-                    px={4}
+                    px={{ base: 2, md: 4 }}
                     py={2}
                     borderRadius="full"
-                    fontSize="sm"
+                    fontSize={{ base: "xs", md: "sm" }}
                     fontWeight="semibold"
+                    maxW="100%"
                   >
-                    <Box as="span" display="inline-flex" fontWeight="bold">
-              <Text as="span" color="#f97316">RM</Text>
-              <Text as="span" color="#22c55e">NA</Text>
-              <Text as="span" color={useColorModeValue('black', 'white')} ml={2}>Electric Mobility</Text>
-            </Box>
+                    <Flex wrap="wrap" align="center" justify="center" gap={1}>
+                      <Box as="span" display="inline-flex" fontWeight="bold">
+                        <Text as="span" color="#f97316">RM</Text>
+                        <Text as="span" color="#22c55e">NA</Text>
+                      </Box>
+                      <Text as="span" color={useColorModeValue('black', 'white')} fontSize={{ base: "2xs", md: "sm" }}>Electric Mobility</Text>
+                    </Flex>
                   </Badge>
                 </MotionBox>
 
                 <MotionBox variants={itemVariants}>
                   <Heading
                     as="h1"
-                    fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
+                    fontSize={{ base: '2xl', md: '5xl', lg: '4xl' }}
                     fontWeight="extrabold"
                     letterSpacing="tight"
                     lineHeight="1.1"
@@ -212,7 +215,7 @@ const AboutSection = () => {
                 <MotionBox variants={itemVariants}>
                   <Heading
                     as="h2"
-                    fontSize={{ base: '2xl', md: '3xl' }}
+                    fontSize={{ base: 'xl', md: '3xl' }}
                     fontWeight="bold"
                     color="green.600"
                     mb={4}
@@ -222,7 +225,7 @@ const AboutSection = () => {
                 </MotionBox>
 
                 <MotionBox variants={itemVariants}>
-                  <Text fontSize={{ base: 'lg', md: 'xl' }} color={textColor} lineHeight="tall">
+                  <Text fontSize={{ base: 'md', md: 'xl' }} color={textColor} lineHeight="tall">
                     At <Box as="span" fontWeight="bold">
                       <Text as="span" color="#f97316">RM</Text>
                       <Text as="span" color="#22c55e">NA</Text>
@@ -232,18 +235,19 @@ const AboutSection = () => {
                 </MotionBox>
 
                 <MotionBox variants={itemVariants}>
-                  <Text fontSize={{ base: 'lg', md: 'xl' }} color={textColor} lineHeight="tall">
+                  <Text fontSize={{ base: 'md', md: 'xl' }} color={textColor} lineHeight="tall">
                     Every ride with RMNA isn't just a journey — it's a step towards a cleaner, smarter, and better tomorrow. Our electric scooters are designed with precision, powered by innovation, and built for performance.
                   </Text>
                 </MotionBox>
 
-                <MotionBox variants={itemVariants}>
-                  <HStack spacing={4}>
+                <MotionBox variants={itemVariants} w="100%">
+                  <Flex direction={{ base: "column", sm: "row" }} gap={4} w="100%">
                     <Button
                       size="lg"
                       bg="green.600"
                       color="white"
-                      px={8}
+                      px={{ base: 4, md: 8 }}
+                      w={{ base: "100%", sm: "auto" }}
                       _hover={{
                         transform: "translateY(-3px)",
                         boxShadow: "xl",
@@ -259,7 +263,8 @@ const AboutSection = () => {
                       variant="outline"
                       borderColor="green.500"
                       color="green.500"
-                      px={8}
+                      px={{ base: 4, md: 8 }}
+                      w={{ base: "100%", sm: "auto" }}
                       _hover={{
                         bg: "green.50",
                         transform: "translateY(-3px)",
@@ -269,7 +274,7 @@ const AboutSection = () => {
                     >
                       Contact Us
                     </Button>
-                  </HStack>
+                  </Flex>
                 </MotionBox>
               </VStack>
             </Box>
@@ -409,16 +414,24 @@ const AboutSection = () => {
             variants={fadeInUp}
           >
             <Box bg={cardBg} p={8} borderRadius="2xl" border="1px solid" borderColor={borderColor} textAlign="center" h="100%">
-              <Avatar
-                size="2xl"
-                name="Abhishek Verma"
-                src="/images/ashish-rajdev.webp"
-                mb={4}
-                mx="auto"
+              <Box
                 boxSize="120px"
+                borderRadius="full"
+                overflow="hidden"
+                mx="auto"
+                mb={4}
                 border="4px solid"
                 borderColor="green.500"
-              />
+                bg={subtleBg}
+              >
+                <Image
+                  src="/images/owner-image.png"
+                  alt="Abhishek Verma"
+                  w="100%"
+                  h="100%"
+                  objectFit="contain"
+                />
+              </Box>
               <Heading as="h3" fontSize="2xl" color={headingColor} mb={2}>
                 Abhishek Verma
               </Heading>
@@ -428,7 +441,7 @@ const AboutSection = () => {
               <VStack spacing={2} align="center" mb={4}>
                 <HStack>
                   <Icon as={FaBriefcase} color="green.500" />
-                  <Text fontSize="sm" color={textColor}>10+ Years in E-Mobility</Text>
+                  <Text fontSize="sm" color={textColor}>8+ Years in E-Mobility</Text>
                 </HStack>
                 <HStack>
                   <Icon as={FaBuilding} color="green.500" />
@@ -533,16 +546,16 @@ const AboutSection = () => {
                     objectFit="cover"
                   />
                 </Box>
-                <Box p={4}>
-                  <Flex align="center" justify="space-between" mb={2}>
-                    <Heading as="h4" fontSize="md" fontWeight="semibold" color={headingColor}>
+                <VStack align="stretch" spacing={2} p={4}>
+                  <Flex align="center" justify="space-between" wrap="wrap" gap={2}>
+                    <Heading as="h4" fontSize={{ base: "sm", md: "md" }} fontWeight="semibold" color={headingColor} flex="1">
                       {model.name}
                     </Heading>
-                    <Badge colorScheme={model.color} fontSize="xs" px={2} py={1}>
+                    <Badge colorScheme={model.color} fontSize={{ base: "2xs", md: "xs" }} px={2} py={1} borderRadius="md">
                       {model.tag}
                     </Badge>
                   </Flex>
-                </Box>
+                </VStack>
               </Box>
             ))}
           </SimpleGrid>

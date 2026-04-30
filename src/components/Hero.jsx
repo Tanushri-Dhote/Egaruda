@@ -42,7 +42,7 @@ const FeaturesThree = () => {
     <Box
       position="relative"
       zIndex="20"
-      mt={{ base: "-45px", md: "-55px" }}
+      mt={{ base: "0px", md: "-55px" }}
       px={{ base: 4, md: 6 }}
     >
       <SimpleGrid
@@ -71,6 +71,7 @@ const FeaturesThree = () => {
               <HStack
                 spacing={3}
                 bg={`${item.color}.50`}
+                _dark={{ bg: `${item.color}.900` }}
                 px={5}
                 py={3}
                 borderRadius="full"

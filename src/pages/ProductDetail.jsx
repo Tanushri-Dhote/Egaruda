@@ -466,7 +466,7 @@ const ProductDetail = () => {
                   src={product.image}
                   alt={product.name}
                   w="100%"
-                  h={{ base: "300px", md: "400px" }}
+                  h={{ base: "380px", md: "450px" }}
                   objectFit="contain"
                   fallbackSrc="https://via.placeholder.com/500x400?text=RMNA+E-Scooty"
                   transition="transform 0.3s"
@@ -655,7 +655,7 @@ const ProductDetail = () => {
                   fontWeight="600"
                   _hover={{ bg: '#1eb355', transform: 'translateY(-2px)' }}
                   transition="all 0.2s"
-                  onClick={() => window.open(`https://wa.me/919695600185?text=I'm interested in ${product.name} from RMNA E-Mobility`, '_blank')}
+                  onClick={() => window.open(`https://wa.me/919125948111?text=I'm interested in ${product.name} from RMNA E-Mobility`, '_blank')}
                 >
                   WhatsApp Inquiry
                 </Button>
@@ -742,7 +742,7 @@ const ProductDetail = () => {
           right="30px"
           zIndex={999}
           cursor="pointer"
-          onClick={() => window.open(`https://wa.me/919695600185?text=I'm interested in ${product.name}`, '_blank')}
+          onClick={() => window.open(`https://wa.me/919125948111?text=I'm interested in ${product.name}`, '_blank')}
           animation={`${float} 2s ease-in-out infinite`}
         >
           <Flex

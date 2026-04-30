@@ -398,7 +398,7 @@ const Gallery = () => {
                         </SlideFade>
 
                         <SlideFade in={true} offsetY="30px" delay={0.1}>
-                            <Heading as="h1" fontSize={{ base: '36px', md: '56px', lg: '64px' }} fontWeight="extrabold" color="white" letterSpacing="tight" mb={4}>
+                            <Heading as="h1" fontSize={{ base: '28px', md: '56px', lg: '64px' }} fontWeight="extrabold" color="white" letterSpacing="tight" mb={4}>
                                 Explore Our{' '}
                                 <Box as="span" display="inline-block">
                                     <Text as="span" color="#f97316">RM</Text>

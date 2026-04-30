@@ -103,7 +103,7 @@ const Navbar = () => {
           <Image
             src="/images/RMNA-without-bg.png"
             alt="RMNA Logo"
-            h={{ base: "100px", md: "110px" }}
+            h={{ base: "70px", md: "110px" }}
             objectFit="contain"
           />
          
@@ -145,6 +145,7 @@ const Navbar = () => {
                   key={product.id}
                   onClick={() => handleProductClick(product.slug)}
                   borderRadius="lg"
+                  bg="transparent"
                   _hover={{ bg: hoverBg, color: accentColor }}
                   py={3}
                 >
@@ -159,7 +160,7 @@ const Navbar = () => {
         </HStack>
 
         {/* Desktop Right Side */}
-        <HStack spacing={4} display={{ base: "none", md: "flex" }}>
+        <HStack spacing={4} display={{ base: "none", lg: "flex" }}>
           <IconButton
             aria-label="Toggle theme"
             icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
@@ -256,6 +257,8 @@ const Navbar = () => {
                   key={p.id}
                   py={4}
                   fontSize="md"
+                  bg="transparent"
+                  _hover={{ bg: hoverBg, color: accentColor }}
                   onClick={() => handleProductClick(p.slug)}
                 >
                   {p.name}

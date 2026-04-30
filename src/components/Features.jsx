@@ -377,7 +377,7 @@ const FeaturesSlider = () => {
         </Badge>
 
         <Heading
-          fontSize={{ base: "32px", md: "44px", lg: "40px" }}
+          fontSize={{ base: "26px", md: "44px", lg: "40px" }}
           fontWeight="extrabold"
           color={headingColor}
           lineHeight="1.2"

@@ -113,13 +113,13 @@ const scooters = [
 
 const ScooterSlider = () => {
     const phoneNumber = "+919695600185";
-    const whatsappNumber = "919695600185";
+    const whatsappNumber = "9125948111";
 
     return (
         <Box
             position="relative"
             w="100%"
-            h="80vh"
+            h={{ base: "85vh", md: "70vh", lg: "80vh" }}
             overflow="hidden"
             bg="gray.50"
             _dark={{ bg: "gray.900" }}
@@ -184,7 +184,8 @@ const ScooterSlider = () => {
                                 maxW="1400px"
                                 mx="auto"
                                 px={{ base: 6, md: 10, lg: 16 }}
-                                gap={{ base: 6, lg: 12 }}
+                                py={{ base: 10, lg: 0 }}
+                                gap={{ base: 4, lg: 12 }}
                             >
                                 {/* Image Section - Left side on desktop */}
                                 <Box
@@ -204,7 +205,7 @@ const ScooterSlider = () => {
                                             p={6}
                                             borderRadius="30px"
                                             boxShadow="0 25px 60px rgba(0,0,0,0.12)"
-                                            w={{ base: "260px", sm: "320px", md: "300px", lg: "350px" }}
+                                            w={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
                                             h="auto"
                                             objectFit="contain"
                                             filter="drop-shadow(0 30px 40px rgba(0,0,0,0.25))"
@@ -295,12 +296,12 @@ const ScooterSlider = () => {
                                     </Text>
 
                                     <Heading
-                                        fontSize={{ base: "3xl", md: "5xl" }}
+                                        fontSize={{ base: "2xl", md: "5xl" }}
                                         fontWeight="900"
                                         lineHeight="1.1"
                                     >
                                         RMNA <br />
-                                        <Text as="span" color="green.500">
+                                        <Text as="span" color="green.500" fontSize={{ base: "xl", md: "4xl" }}>
                                             E-Mobility Services
                                         </Text>
                                     </Heading>
@@ -412,7 +413,11 @@ const ScooterSlider = () => {
           height: 10px;
         }
         .swiper-pagination {
-          bottom: 70px !important;
+          bottom: 20px !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          width: auto !important;
+          white-space: nowrap !important;
         }
       `}</style>
         </Box>
