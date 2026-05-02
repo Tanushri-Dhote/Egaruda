@@ -31,6 +31,7 @@ import {
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const products = [
+  { id: 0, name: "Single Light", slug: "single-light", category: "E-Scooty" },
   { id: 1, name: "Double Light", slug: "double-light", category: "E-Scooty" },
   { id: 2, name: "Legendre LD", slug: "legendre-ld", category: "E-Scooty" },
   { id: 3, name: "Mini Activa (CS)", slug: "mini-activa-cs", category: "E-Scooty" },
@@ -38,6 +39,7 @@ const products = [
   { id: 5, name: "THAR - E4", slug: "thar-e4", category: "E-Scooty" },
   { id: 6, name: "BMW", slug: "bmw", category: "E-Scooty" },
   { id: 7, name: "Momentum Q7", slug: "momentum-q7", category: "E-Scooty" },
+  { id: 8, name: "Ola Model", slug: "ola-pro", category: "E-Scooty" },
 ];
 
 const Navbar = () => {

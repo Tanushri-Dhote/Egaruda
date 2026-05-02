@@ -48,6 +48,7 @@ const Footer = () => {
   const cardBg = useColorModeValue("white", "gray.800");
 
   const products = [
+    { name: "Single Light", slug: "single-light", icon: FaStar },
     { name: "Double Light", slug: "double-light", icon: FaStar },
     { name: "Legendre LD", slug: "legendre-ld", icon: FaStar },
     { name: "Mini Activa (CS)", slug: "mini-activa-cs", icon: FaBolt },
@@ -55,6 +56,7 @@ const Footer = () => {
     { name: "THAR - E4", slug: "thar-e4", icon: FaBolt },
     { name: "BMW", slug: "bmw", icon: FaStar },
     { name: "Momentum Q7", slug: "momentum-q7", icon: FaCheckCircle },
+    { name: "Ola Model", slug: "ola-pro", icon: FaStar },
   ];
 
   const handleProductClick = (slug) => {
